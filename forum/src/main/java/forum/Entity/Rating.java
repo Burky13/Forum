@@ -15,6 +15,8 @@ public class Rating {
     private String commentId;
     private int value;
 
+
+
     public Rating(String userName, String commentId, int value){
         this.userName = userName;
         this.commentId = commentId;

@@ -6,10 +6,11 @@ import forum.services.user.UserService;
 import forum.services.user.UserServiceJpa;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@SpringBootConfiguration
+@SpringBootApplication
 @Configuration
 public class SpringMain {
 
@@ -20,8 +21,9 @@ public class SpringMain {
 
         @Bean
         public UserService userService() {
-            return new UserServiceJpa();
-        }
+        return new UserServiceJpa();
+    }
+
         @Bean
         public CommentService commentService(){
         return new CommentServiceJPA();

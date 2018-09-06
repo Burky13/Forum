@@ -1,10 +1,13 @@
 package forum.entity;
 
+import com.sun.xml.internal.ws.api.streaming.XMLStreamWriterFactory;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="forum_user")
 public class User {
     @Id
     @GeneratedValue
@@ -15,7 +18,9 @@ public class User {
     private String password;
     @Transient
     private String repeatPassword;
+    @ColumnDefault("false")
     private boolean admin;
+    @ColumnDefault("false")
     private boolean moderator;
 
     private User(){
@@ -33,6 +38,8 @@ public class User {
     public boolean validatePassword(){
         return password.equals(repeatPassword);
     }
+
+
     public String getUserName() {
         return userName;
     }

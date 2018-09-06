@@ -1,4 +1,4 @@
-package forum.services.ratingService;
+package forum.services.rating;
 
 import forum.Entity.Rating;
 
