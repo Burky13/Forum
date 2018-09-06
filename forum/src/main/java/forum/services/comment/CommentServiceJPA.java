@@ -1,4 +1,4 @@
-package forum.service.commentService;
+package forum.services.comment;
 
 import forum.entity.Comment;
 import org.springframework.transaction.annotation.Transactional;
