@@ -1,4 +1,4 @@
-package forum.service;
+package forum.service.commentService;
 
 import forum.entity.Comment;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +18,7 @@ public class CommentServiceJPA implements CommentService {
         try{
             entityManager.persist(comment);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new CommentException("Cannot save comment", e);
         }
 
     }
@@ -30,7 +30,7 @@ public class CommentServiceJPA implements CommentService {
                     .setParameter("topic",topic)
                     .getResultList();
         }catch (Exception e) {
-            e.printStackTrace();
+            throw new CommentException("Error getting comment for topic" + topic, e);
         }
     }
 }

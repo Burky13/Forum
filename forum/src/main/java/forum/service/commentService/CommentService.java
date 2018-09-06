@@ -1,4 +1,4 @@
-package forum.service;
+package forum.service.commentService;
 
 import forum.entity.Comment;
 
