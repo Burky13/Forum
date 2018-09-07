@@ -21,9 +21,9 @@ public class RatingController {
     @RequestMapping("/rate")
     public String changeRating(Rating rating){
         if(rating.getValue() != 0 && userController.isLogged()){
-         //   rating.setUserName(userController.getLoggedUserName());
+            rating.setUserName(userController.getLoggedUserName());
             ratingService.changeRating(rating);
         }
-        return rating.getCommentId();
+        return "somewhere :)";
     }
 }

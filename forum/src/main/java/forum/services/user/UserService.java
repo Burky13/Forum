@@ -15,7 +15,5 @@ public interface UserService {
     void newModeraor(Long id);
     void deleteAdmin(Long id);
     void deleteModerator(Long id);
-    boolean isAdmin(Long id);
-    boolean isModerator(Long id);
 
 }
