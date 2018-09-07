@@ -1,4 +1,4 @@
-package forum.Entity;
+package forum.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,7 +1,7 @@
 package forum.controllers;
 
 import forum.Entity.Rating;
-import forum.services.rating.RatingServiceJpa;
+import forum.services.rating.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RatingController {
 
     @Autowired
-    private RatingServiceJpa ratingService;
+    private RatingService ratingService;
     @Autowired
     private UserController userController;
 
