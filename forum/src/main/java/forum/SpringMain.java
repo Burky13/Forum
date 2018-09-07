@@ -21,8 +21,9 @@ public class SpringMain {
 
         @Bean
         public UserService userService() {
-            return new UserServiceJpa();
-        }
+        return new UserServiceJpa();
+    }
+
         @Bean
         public CommentService commentService(){
         return new CommentServiceJPA();

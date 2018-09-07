@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="/css/game.css" />
+
+</head>
+<body>
+
+<div th:if="${@userController.logged}">
+    You are already logged. <a href="/logout">Logout</a>
+    <a href ="/">Back To Main Menu</a>
+    <div th:unless="${@userController.logged}">
+        <a href="/">farum</a>
+    </div>
+</div>
+<div th:unless="${@userController.logged}">
+    <h1>Login</h1>
+    <form action="login" method="Post">
+        <div>
+            <h3><label>Username</label> <input type="text" name="userName"
+                                               required="required" /></h3>
+        </div>
+        <div>
+            <h3>
+                <label>Password</label> <input type="password" name="password"
+                                               required="required" />
+            </h3>
+        </div>
+        <div>
+            <h3>
+                <input type="submit" value="Login" />
+            </h3>
+        </div>
+    </form>
+
+</div>
+
+
+
+</body>
+</html>
