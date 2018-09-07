@@ -12,18 +12,18 @@ public class Rating {
 
 
     private String userName;
-    private String commentId;
+    private long commentId;
     private int value;
 
+    public Rating(){}
 
-
-    public Rating(String userName, String commentId, int value){
+    public Rating(String userName, long commentId, int value){
         this.userName = userName;
         this.commentId = commentId;
         this.value = value;
     }
 
-    public void setCommentId(String commentId) {
+    public void setCommentId(long commentId) {
         this.commentId = commentId;
     }
 
@@ -35,7 +35,7 @@ public class Rating {
         this.value = value;
     }
 
-    public String getCommentId() {
+    public long getCommentId() {
         return commentId;
     }
 

@@ -21,6 +21,13 @@ public class UserController {
     public boolean isLogged(){
         return loggedUser !=null;
     }
+    public String getLoggedUserName() {
+        if (loggedUser != null) {
+            return loggedUser.getUserName();
+        } else {
+            return "";
+        }
+    }
 
     @RequestMapping("/login")
     public String login(String userName , String password){
@@ -56,7 +63,18 @@ public class UserController {
         return "login";
     }
 
-    public String getLoggedUser() {
-        return loggedUser.getUserName();
+    public boolean adminLogged() {
+        if(loggedUser==null)
+            return false;
+        return loggedUser.isAdmin();
     }
+
+    public boolean moderatorLogged() {
+        if(loggedUser==null)
+            return false;
+        return loggedUser.isModerator();
+    }
+
+
+
 }
