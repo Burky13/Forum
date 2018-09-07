@@ -56,4 +56,7 @@ public class UserController {
         return "login";
     }
 
+    public String getLoggedUser() {
+        return loggedUser.getUserName();
+    }
 }

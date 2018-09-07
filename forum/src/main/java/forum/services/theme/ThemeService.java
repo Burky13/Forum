@@ -9,11 +9,11 @@ public interface ThemeService {
 
     List<Theme> getThemeByCategory(String category);
 
-    void editTheme(long id, String newThemeName);
+    void editTheme(Long id, String newThemeName);
 
-    void deleteTheme(long id);
+    void deleteTheme(Long id);
 
-    void lock(long id);
+    void lock(Long id);
 
-    void unlock(long id);
+    void unlock(Long id);
 }

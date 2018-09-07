@@ -37,7 +37,7 @@ public class ThemeServiceJpa implements ThemeService {
     }
 
     @Override
-    public void editTheme(long id, String newThemeName) {
+    public void editTheme(Long id, String newThemeName) {
         Theme t = null;
         try{
             t = entityManager.createQuery("select t from Theme t where t.id= :id", Theme.class)
@@ -51,7 +51,7 @@ public class ThemeServiceJpa implements ThemeService {
     }
 
     @Override
-    public void deleteTheme(long id) {
+    public void deleteTheme(Long id) {
         Theme t = null;
         try{
             t = entityManager.createQuery("select t from Theme t where t.id= :id", Theme.class)
@@ -65,7 +65,7 @@ public class ThemeServiceJpa implements ThemeService {
     }
 
     @Override
-    public void lock(long id) {
+    public void lock(Long id) {
         Theme t = null;
         try{
             t = entityManager.createQuery("select t from Theme t where t.id= :id", Theme.class)
@@ -79,7 +79,7 @@ public class ThemeServiceJpa implements ThemeService {
     }
 
     @Override
-    public void unlock(long id) {
+    public void unlock(Long id) {
         Theme t = null;
         try {
             t = entityManager.createQuery("select t from Theme t where t.id= :id", Theme.class)
