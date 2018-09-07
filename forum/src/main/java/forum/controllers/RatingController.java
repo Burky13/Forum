@@ -1,6 +1,6 @@
 package forum.controllers;
 
-import forum.Entity.Rating;
+import forum.entity.Rating;
 import forum.services.rating.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
