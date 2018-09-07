@@ -10,41 +10,52 @@ public class Rating {
     @GeneratedValue
     private long Id;
 
-
     private String userName;
     private long commentId;
     private int value;
+    private String type;
+
+
 
     public Rating(){}
 
-    public Rating(String userName, long commentId, int value){
+    public Rating(String userName, long commentId, int value, String type){
         this.userName = userName;
         this.commentId = commentId;
         this.value = value;
-    }
-
-    public void setCommentId(long commentId) {
-        this.commentId = commentId;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public long getCommentId() {
-        return commentId;
+        this.type = type;
     }
 
     public String getUserName() {
         return userName;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public long getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(long commentId) {
+        this.commentId = commentId;
+    }
+
     public int getValue() {
         return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public long getId() {
