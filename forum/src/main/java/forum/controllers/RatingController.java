@@ -1,6 +1,6 @@
 package forum.controllers;
 
-import forum.Entity.Rating;
+import forum.entity.Rating;
 import forum.services.rating.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,31 @@ public class RatingController {
 
     }
 
-    @RequestMapping("/rate")
-    public String changeRating(Rating rating){
+    @RequestMapping("/ratecomment")
+    public String changeCommentRating(Rating rating){
         if(rating.getValue() != 0 && userController.isLogged()){
             rating.setUserName(userController.getLoggedUserName());
+            rating.setType("comment");
+            ratingService.changeRating(rating);
+        }
+        return "somewhere :)";
+    }
+
+    @RequestMapping("/rateuser")
+    public String changeUserRating(Rating rating){
+        if(rating.getValue() != 0 && userController.isLogged()){
+            rating.setUserName(userController.getLoggedUserName());
+            rating.setType("user");
+            ratingService.changeRating(rating);
+        }
+        return "somewhere :)";
+    }
+
+    @RequestMapping("/ratetheme")
+    public String changeThemeRating(Rating rating){
+        if(rating.getValue() != 0 && userController.isLogged()){
+            rating.setUserName(userController.getLoggedUserName());
+            rating.setType("theme");
             ratingService.changeRating(rating);
         }
         return "somewhere :)";
