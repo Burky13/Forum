@@ -24,10 +24,10 @@ public class CommentServiceJPA implements CommentService {
     }
 
     @Override
-    public List<Comment> getComments(String topic) {
+    public List<Comment> getComments(String topic, long topicId) {
         try{
-            return entityManager.createQuery("select c from Comment c where c.topic = :topic order by c.commentedOn desc", Comment.class)
-                    .setParameter("topic",topic)
+            return entityManager.createQuery("select c from Comment c where c.topicId = :topicId order by c.commentedOn desc", Comment.class)
+                    .setParameter("topicId", topicId)
                     .getResultList();
         }catch (Exception e) {
             throw new CommentException("Error getting comment for topic" + topic, e);

@@ -5,6 +5,7 @@ import org.hibernate.annotations.GeneratorType;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "forum_user")
 public class User {
     @Id
     @GeneratedValue

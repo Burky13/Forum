@@ -1,8 +1,6 @@
 package forum.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,7 +11,7 @@ public class Comment {
     private String text;
     private Date commentedOn;
     private String userName;
-    private String topic;
+    private long topicId;
 
     public Comment() {
     }
@@ -37,8 +35,8 @@ public class Comment {
         return userName;
     }
 
-    public String getTopic() {
-        return topic;
+    public long getTopicId() {
+        return topicId;
     }
 
     public void setText(String text) {
@@ -55,6 +53,10 @@ public class Comment {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public void setTopicId(long topicId) {
+        this.topicId = topicId;
     }
 }
 
