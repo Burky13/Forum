@@ -31,7 +31,7 @@ public class RatingController {
         return "somewhere :)";
     }
 
-    @RequestMapping("/rateuser")
+    @RequestMapping("/rateuser")//blud, pridat poster string do entity
     public String changeUserRating(Rating rating){
         if(rating.getValue() != 0 && userController.isLogged()){
             rating.setUserName(userController.getLoggedUserName());
