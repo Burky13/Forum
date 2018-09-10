@@ -64,5 +64,9 @@ public class Comment {
     public void setRating(double rating) {
         this.rating = rating;
     }
+
+    public long getId() {
+        return id;
+    }
 }
 

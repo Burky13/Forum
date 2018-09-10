@@ -8,4 +8,5 @@ public interface CommentService {
     void addComment(Comment comment);
     void removeComment(Long id);
     List<Comment> getComments(Long topic);
+    void editComment (Long id);
 }
