@@ -27,7 +27,7 @@ public class ThemeController {
 
 
 
-    @RequestMapping("/addtheme")
+    @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme.getCategory() !=null && userController.isLogged()) {
             theme.setUserName("Jozko");
@@ -38,7 +38,7 @@ public class ThemeController {
         return "theme";
     }
 
-    @RequestMapping("/removetheme")
+    @RequestMapping("/removeTheme")
     public String removeTheme(Long id){
         if(id != null){
             themeService.deleteTheme(id);

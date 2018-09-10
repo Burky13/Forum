@@ -2,6 +2,10 @@ package forum;
 
 import forum.services.comment.CommentService;
 import forum.services.comment.CommentServiceJPA;
+import forum.services.rating.RatingService;
+import forum.services.rating.RatingServiceJpa;
+import forum.services.theme.ThemeService;
+import forum.services.theme.ThemeServiceJpa;
 import forum.services.user.UserService;
 import forum.services.user.UserServiceJpa;
 import org.springframework.boot.SpringApplication;
@@ -28,6 +32,12 @@ public class SpringMain {
         public CommentService commentService(){
         return new CommentServiceJPA();
         }
+
+        @Bean
+        public RatingService ratingService() { return new RatingServiceJpa();}
+
+        @Bean
+        public ThemeService themeService() {return new ThemeServiceJpa();}
 
 }
 
