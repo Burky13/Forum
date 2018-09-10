@@ -1,6 +1,6 @@
 package forum.services.rating;
 
-import forum.Entity.Rating;
+import forum.entity.Rating;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

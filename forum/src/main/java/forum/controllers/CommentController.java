@@ -31,7 +31,7 @@ public class CommentController {
     @RequestMapping("/addComment")
     public String addComment(Comment comment) {
         if (comment.getText() != null && userController.isLogged()) {
-            comment.setUserName(userController.getLoggedUser());
+            comment.setUserName(userController.getLoggedUserName());
             comment.setCommentedOn(new Date());
             comment.setTopicId(theme.getId());
             commentService.addComment(comment);

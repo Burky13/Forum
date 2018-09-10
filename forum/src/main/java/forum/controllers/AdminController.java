@@ -1,6 +1,7 @@
 package forum.controllers;
 
 
+import forum.entity.User;
 import forum.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,6 +18,8 @@ public class AdminController {
     @Autowired
     private UserController userController;
 
+    User user;
+
 
     @RequestMapping("/admin")
     public String login() {
@@ -26,7 +29,7 @@ public class AdminController {
 
     @RequestMapping("/deleteUser")
     public String deleteUser(Long id) {
-        if(id !=null && !userService.isAdmin(id) ) {
+        if(id !=null && !user.isAdmin()) {
             userService.deleteUser(id);
         }
 
