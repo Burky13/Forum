@@ -51,7 +51,7 @@ public class UserServiceJpa implements UserService {
     @Override
     public List<User> getAllUsers() {
 
-        return entityManager.createQuery("Select u from User ", User.class)
+        return entityManager.createQuery("Select u from User u ", User.class)
                 .getResultList();
 
     }

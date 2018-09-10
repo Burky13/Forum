@@ -32,7 +32,7 @@ public class RatingServiceJpa implements RatingService{
         }
         try {
             c = entityManager.createQuery("Select c from Comment c where r.id = :commentid and r.userName = :username", Comment.class)
-                    .setParameter("commentid", rating.getCommentId()).setParameter("username", rating.getPoster()).getSingleResult();
+                   .setParameter("commentid", rating.getCommentId()).setParameter("username", rating.getPoster()).getSingleResult();
         } catch (NoResultException e) { }
         c.setRating(getAvgRating(c.getTopicId(),"comment"));
         entityManager.merge(c);

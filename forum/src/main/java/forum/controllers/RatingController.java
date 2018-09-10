@@ -25,7 +25,7 @@ public class RatingController {
     public String changeCommentRating(Rating rating){
         if(rating.getValue() != 0 && userController.isLogged()){
             rating.setUserName(userController.getLoggedUserName());
-            rating.setType("comment");
+      //      rating.setType("comment");
             ratingService.changeRating(rating);
         }
         return "somewhere :)";
@@ -35,7 +35,7 @@ public class RatingController {
     public String changeThemeRating(Rating rating){
         if(rating.getValue() != 0 && userController.isLogged()){
             rating.setUserName(userController.getLoggedUserName());
-            rating.setType("theme");
+        //    rating.setType("theme");
             ratingService.changeRating(rating);
         }
         return "somewhere :)";
