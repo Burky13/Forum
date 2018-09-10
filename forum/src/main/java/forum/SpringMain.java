@@ -40,5 +40,3 @@ public class SpringMain {
         public ThemeService themeService() {return new ThemeServiceJpa();}
 
 }
-
-

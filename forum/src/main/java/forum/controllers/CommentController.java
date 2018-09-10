@@ -41,9 +41,16 @@ public class CommentController {
 
     @RequestMapping("/removeComment")
     public String removeComment(Long id) {
-        Comment c = null;
-        if (c != null) {
+        if (id != null) {
             commentService.removeComment(id);
+        }
+        return "theme";
+    }
+
+    @RequestMapping("/editComment")
+    public String editComment(Long id) {
+        if(id != null) {
+            commentService.editComment(id);
         }
         return "theme";
     }

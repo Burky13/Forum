@@ -31,16 +31,6 @@ public class RatingController {
         return "somewhere :)";
     }
 
-    @RequestMapping("/rateuser")//blud, pridat poster string do entity
-    public String changeUserRating(Rating rating){
-        if(rating.getValue() != 0 && userController.isLogged()){
-            rating.setUserName(userController.getLoggedUserName());
-            rating.setType("user");
-            ratingService.changeRating(rating);
-        }
-        return "somewhere :)";
-    }
-
     @RequestMapping("/ratetheme")
     public String changeThemeRating(Rating rating){
         if(rating.getValue() != 0 && userController.isLogged()){

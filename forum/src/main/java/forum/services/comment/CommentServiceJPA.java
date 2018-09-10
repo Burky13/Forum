@@ -51,4 +51,18 @@ public class CommentServiceJPA implements CommentService {
             throw new CommentException("Error getting comment for theme" + theme.getTheme(), e);
         }
     }
+
+    @Override
+    public void editComment(Long id) {
+        Comment c = null;
+        try {
+            c = entityManager.createQuery("select c from Comment c where c.id = :id", Comment.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+        }
+        if(c != null) {
+            entityManager.persist(c);
+        }
+    }
 }
