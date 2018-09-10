@@ -20,7 +20,7 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteUser(Long id) {
         User u = null;
         try{
             u = entityManager.createQuery("SELECT u FROM User u where u.id = :id",User.class)
@@ -74,7 +74,7 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public void newAdmin(long id) {
+    public void newAdmin(Long id) {
         User u = null;
         try{
             u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.admin= :admin",User.class)
@@ -90,7 +90,7 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public void newModeraor(long id) {
+    public void newModeraor(Long id) {
         User u = null;
         try{
             u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.moderator= :moderator",User.class)
@@ -106,7 +106,7 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public void deleteAdmin(long id) {
+    public void deleteAdmin(Long id) {
         User u = null;
         try{
             u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.admin= :admin ",User.class)
@@ -122,7 +122,7 @@ public class UserServiceJpa implements UserService {
     }
 
     @Override
-    public void deleteModerator(long id) {
+    public void deleteModerator(Long id) {
         User u = null;
         try{
             u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.moderator= : moderator",User.class)

@@ -3,6 +3,7 @@ package forum;
 import forum.services.comment.CommentService;
 import forum.services.comment.CommentServiceJPA;
 import forum.services.rating.RatingService;
+import forum.services.rating.RatingServiceJpa;
 import forum.services.theme.ThemeService;
 import forum.services.theme.ThemeServiceJpa;
 import forum.services.user.UserService;
@@ -22,19 +23,21 @@ public class SpringMain {
     }
 
 
-    @Bean
-    public UserService userService() {
+        @Bean
+        public UserService userService() {
         return new UserServiceJpa();
     }
 
-    @Bean
-    public CommentService commentService(){
+        @Bean
+        public CommentService commentService(){
         return new CommentServiceJPA();
-    }
+        }
 
         @Bean
-        public ThemeService themeService() { return new ThemeServiceJpa(); }
+        public RatingService ratingService() { return new RatingServiceJpa();}
 
+        @Bean
+        public ThemeService themeService() {return new ThemeServiceJpa();}
 
 }
 

@@ -1,8 +1,6 @@
 package forum.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,16 +11,18 @@ public class Comment {
     private String text;
     private Date commentedOn;
     private String userName;
-    private String topic;
+    private long topicId;
+    private double rating;
 
     public Comment() {
     }
 
-    public Comment(String text, Date commentedOn, String userName, String topic) {
+    public Comment(String text, Date commentedOn, String userName, long topicId, double rating) {
         this.text = text;
         this.commentedOn = commentedOn;
         this.userName = userName;
-        this.topic = topic;
+        this.topicId = topicId;
+        this.rating = rating;
     }
 
     public String getText() {
@@ -37,8 +37,8 @@ public class Comment {
         return userName;
     }
 
-    public String getTopic() {
-        return topic;
+    public long getTopicId() {
+        return topicId;
     }
 
     public void setText(String text) {
@@ -53,8 +53,16 @@ public class Comment {
         this.userName = userName;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setTopicId(long topicId) {
+        this.topicId = topicId;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
 

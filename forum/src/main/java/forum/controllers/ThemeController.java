@@ -23,6 +23,10 @@ public class ThemeController {
     private UserController userController;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme.getCategory() !=null && userController.isLogged()) {
