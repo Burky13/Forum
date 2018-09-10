@@ -26,7 +26,7 @@ public class AdminController {
 
     @RequestMapping("/deleteUser")
     public String deleteUser(Long id) {
-        if(id !=null && !userService.isAdmin(id) ) {
+        if(id !=null ) {
             userService.deleteUser(id);
         }
 
@@ -37,6 +37,27 @@ public class AdminController {
     public String addAdmin(Long id) {
         if(id!=null){
             userService.newAdmin(id);
+        }
+        return "redirect:/admin";
+    }
+    @RequestMapping("/addModerator")
+    public String addModerator(Long id){
+        if(id!=null){
+            userService.newModeraor(id);
+        }
+        return "redirect:/admin";
+    }
+    @RequestMapping("/deleteAdmin")
+    public String deleteAdmin(Long id) {
+        if(id!=null){
+            userService.deleteAdmin(id);
+        }
+        return "redirect:/admin";
+    }
+    @RequestMapping("/deleteModerator")
+    public String deleteModerator(Long id){
+        if(id!=null){
+            userService.deleteModerator(id);
         }
         return "redirect:/admin";
     }
