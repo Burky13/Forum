@@ -22,11 +22,6 @@ public class ThemeController {
     @Autowired
     private UserController userController;
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme.getCategory() !=null && userController.isLogged()) {
@@ -44,5 +39,4 @@ public class ThemeController {
         }
         return "theme";
     }
-
 }
