@@ -5,10 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -17,59 +14,69 @@ public class Theme implements Serializable {
     @Id
     @GeneratedValue
     private long id;
-    @Column(unique = true)
-    private String theme;
-    private String userName;
-    private Date whenW;
-    private String category;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Category category;
+
+    @Column(nullable = false)
+    private String title;
     @ColumnDefault("false")
     private boolean isLocked;
+    private Date whenCreated;
+
 
     public Theme(){
+
     }
 
-    public Theme(String theme, String userName, Date whenW, String category, boolean isLocked) {
-        this.theme = theme;
-        this.userName = userName;
-        this.whenW = whenW;
+    public Theme(User user, Category category, String title, boolean isLocked, Date whenCreated) {
+        this.user = user;
         this.category = category;
+        this.title = title;
         this.isLocked = isLocked;
+        this.whenCreated = whenCreated;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getTheme() {
-        return theme;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Date getWhenW() {
-        return whenW;
-    }
-
-    public void setWhenW(Date whenW) {
-        this.whenW = whenW;
-    }
-
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getWhenCreated() {
+        return whenCreated;
+    }
+
+    public void setWhenCreated(Date whenCreated) {
+        this.whenCreated = whenCreated;
     }
 
     public boolean isLocked() {

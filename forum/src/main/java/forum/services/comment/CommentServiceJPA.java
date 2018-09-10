@@ -42,18 +42,19 @@ public class CommentServiceJPA implements CommentService {
 	}
 
 	@Override
-    public List<Comment> getComments(Long topicId) {
+    public List<Comment> getComments(Theme theme) {
         try{
-            return entityManager.createQuery("select c from Comment c where c.topicId = :topicId order by c.commentedOn desc", Comment.class)
-                    .setParameter("topicId", topicId)
+            return entityManager.createQuery("select c from Comment c where c.theme = :theme order by c.commentedOn desc", Comment.class)
+                    .setParameter("theme", theme)
                     .getResultList();
         }catch (NoResultException e) {
-            throw new CommentException("Error getting comment for theme" + theme.getTheme(), e);
+
         }
+        return null;
     }
 
     @Override
-    public void editComment(Long id) {
+    public void editComment(Long id,String text) {
         Comment c = null;
         try {
             c = entityManager.createQuery("select c from Comment c where c.id = :id", Comment.class)
@@ -62,7 +63,7 @@ public class CommentServiceJPA implements CommentService {
         } catch (NoResultException e) {
         }
         if(c != null) {
-            entityManager.persist(c);
+            c.setText(text);
         }
     }
 }

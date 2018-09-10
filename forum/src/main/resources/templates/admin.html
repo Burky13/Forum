@@ -32,8 +32,8 @@
                         <td class="tab" th:text="${user.password}" />
                         <td class="tab" th:text="${user.admin}" />
                         <td class="tab" >
-                            <div onclick="myFunction()">
-                            <a th:href='${"/deleteUser?id="+user.id}'   th:text="X">
+                            <div >
+                            <a th:href='${"/deleteUser?id="+user.id}'  onclick="myFunction()" th:text="X">
                             </a>
                             </div>
                         </td>
@@ -80,7 +80,11 @@
 
 <script>
 function myFunction() {
-    confirm("You really want to delete this user?!");
+var r = confirm("You really want to delete this user?!");
+   if(r=true){
+   <!--vymaz-->
+   }else{
+   <!--jebnato-->
 }
 </script>
 

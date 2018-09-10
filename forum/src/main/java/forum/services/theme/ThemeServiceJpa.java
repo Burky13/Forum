@@ -3,6 +3,8 @@ package forum.services.theme;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.NoResultException;
+
+import forum.entity.Category;
 import javassist.bytecode.stackmap.BasicBlock;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -27,7 +29,7 @@ public class ThemeServiceJpa implements ThemeService {
     }
 
     @Override
-    public List<Theme> getThemeByCategory(String category) {
+    public List<Theme> getThemeByCategory(Category category) {
         try {
             return entityManager.createQuery("select t from Theme t where t.category= :category", Theme.class)
                     .setParameter("category", category)
@@ -46,7 +48,7 @@ public class ThemeServiceJpa implements ThemeService {
         } catch (NoResultException e){
         }
         if (t != null){
-            t.setTheme(newThemeName);
+            t.setTitle(newThemeName);
         }
     }
 

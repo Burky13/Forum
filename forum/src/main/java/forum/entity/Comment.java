@@ -8,65 +8,65 @@ public class Comment {
     @Id
     @GeneratedValue
     private long id;
-    private String text;
-    private Date commentedOn;
-    private String userName;
-    private long topicId;
-    private double rating;
 
-    public Comment() {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Theme theme;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user;
+    @Column(nullable =  false)
+    private String text;
+    @Column(nullable =  false)
+    private Date date;
+
+    public Comment (){
+
     }
 
-    public Comment(String text, Date commentedOn, String userName, long topicId, double rating) {
+    public Comment(Theme theme, User user, String text, Date date) {
+        this.theme = theme;
+        this.user = user;
         this.text = text;
-        this.commentedOn = commentedOn;
-        this.userName = userName;
-        this.topicId = topicId;
-        this.rating = rating;
+        this.date = date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getText() {
         return text;
     }
 
-    public Date getCommentedOn() {
-        return commentedOn;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public long getTopicId() {
-        return topicId;
-    }
-
     public void setText(String text) {
         this.text = text;
     }
 
-    public void setCommentedOn(Date commentedOn) {
-        this.commentedOn = commentedOn;
+    public Date getDate() {
+        return date;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setTopicId(long topicId) {
-        this.topicId = topicId;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public long getId() {
-        return id;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 
