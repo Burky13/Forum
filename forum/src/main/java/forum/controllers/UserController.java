@@ -53,7 +53,7 @@ public class UserController {
     @RequestMapping("/logout")
     public String logout(){
         loggedUser =null;
-        return "login";
+        return "index";
     }
 
 }

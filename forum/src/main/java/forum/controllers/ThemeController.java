@@ -22,23 +22,18 @@ public class ThemeController {
     @Autowired
     private UserController userController;
 
-    @Autowired
 
-
-
-
-    @RequestMapping("/addtheme")
+    @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme.getCategory() !=null && userController.isLogged()) {
             theme.setUserName("Jozko");
             theme.setWhenW(new Date());
             themeService.addTheme(theme);
         }
-
         return "theme";
     }
 
-    @RequestMapping("/removetheme")
+    @RequestMapping("/removeTheme")
     public String removeTheme(Long id){
         if(id != null){
             themeService.deleteTheme(id);
