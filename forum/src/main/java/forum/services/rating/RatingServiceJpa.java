@@ -29,17 +29,17 @@ public class RatingServiceJpa implements RatingService{
     }
 
     @Override
-    public double getAvgRating(long commentID){
+    public double getAvgRating(long commentID, String type){
         double likes = 0;
         double dislikes = 0;
 
         try {
-            likes = entityManager.createQuery("Select count(value) from Rating r where r.commentId = :commentid and r.value = 1", Double.class)
-                    .setParameter("commentid", commentID).getSingleResult();
+            likes = entityManager.createQuery("Select count(value) from Rating r where r.commentId = :commentid and r.value = 1 and r.type = :type", Double.class)
+                    .setParameter("commentid", commentID).setParameter("type", type).getSingleResult();
         }catch (NoResultException e){}
         try {
-            dislikes = entityManager.createQuery("Select count(value) from Rating r where r.commentId = :commentid and r.value = -1", Double.class)
-                    .setParameter("commentid", commentID).getSingleResult();
+            dislikes = entityManager.createQuery("Select count(value) from Rating r where r.commentId = :commentid and r.value = -1 and r.type = :type", Double.class)
+                    .setParameter("commentid", commentID).setParameter("type", type).getSingleResult();
         }catch (NoResultException e){}
 
         if(likes == 0 && dislikes == 0){
