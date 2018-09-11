@@ -21,12 +21,19 @@ public class UserController {
     public boolean isLogged(){
         return loggedUser !=null;
     }
+
     public String getLoggedUserName() {
         if (loggedUser != null) {
             return loggedUser.getUserName();
         } else {
             return "";
         }
+    }
+    public User getLoggedUser(){
+        if(loggedUser!=null){
+            return loggedUser;
+        }else
+            return null;
     }
 
     @RequestMapping("/login")
