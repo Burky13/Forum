@@ -2,6 +2,7 @@ package forum.controllers;
 
 import java.util.Date;
 
+import forum.services.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,13 @@ public class ThemeController {
     @Autowired
     private UserController userController;
 
+    @Autowired
+    private CategoryController categoryController;
+
     @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
-        if(theme.getCategory() !=null && userController.isLogged()) {
+        if(theme !=null && userController.isLogged()) {
+            theme.setCategory(categoryController.getActualcategory());
             theme.setUser(userController.getLoggedUser());
             theme.setWhenCreated(new Date());
             themeService.addTheme(theme);
