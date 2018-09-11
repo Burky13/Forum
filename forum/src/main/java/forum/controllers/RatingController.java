@@ -23,19 +23,8 @@ public class RatingController {
 
     @RequestMapping("/ratecomment")
     public String changeCommentRating(Rating rating){
-        if(rating.getValue() != 0 && userController.isLogged()){
-            rating.setUserName(userController.getLoggedUserName());
-      //      rating.setType("comment");
-            ratingService.changeRating(rating);
-        }
-        return "somewhere :)";
-    }
-
-    @RequestMapping("/ratetheme")
-    public String changeThemeRating(Rating rating){
-        if(rating.getValue() != 0 && userController.isLogged()){
-            rating.setUserName(userController.getLoggedUserName());
-        //    rating.setType("theme");
+        if(userController.isLogged()){
+            rating.setUser(userController.getLoggedUser());
             ratingService.changeRating(rating);
         }
         return "somewhere :)";
