@@ -1,5 +1,7 @@
 package forum;
 
+import forum.services.Category.CategoryService;
+import forum.services.Category.CategoryServiceJpa;
 import forum.services.comment.CommentService;
 import forum.services.comment.CommentServiceJPA;
 import forum.services.rating.RatingService;
@@ -25,18 +27,19 @@ public class SpringMain {
 
         @Bean
         public UserService userService() {
-        return new UserServiceJpa();
-    }
+        return new UserServiceJpa();}
 
         @Bean
         public CommentService commentService(){
-        return new CommentServiceJPA();
-        }
+        return new CommentServiceJPA();}
 
         @Bean
         public RatingService ratingService() { return new RatingServiceJpa();}
 
         @Bean
         public ThemeService themeService() {return new ThemeServiceJpa();}
+
+        @Bean
+        public CategoryService categoryService() {return new CategoryServiceJpa();}
 
 }
