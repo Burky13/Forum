@@ -17,4 +17,11 @@ public class CategoryServiceJpa implements  CategoryService {
         return entityManager.createQuery("Select c from Category c", Category.class).getResultList();
 
     }
+
+    @Override
+    public void addCategory(Category category) {
+        if(category!=null){
+            entityManager.persist(category);
+        }
+    }
 }

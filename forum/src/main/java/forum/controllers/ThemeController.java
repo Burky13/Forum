@@ -41,7 +41,6 @@ public class ThemeController {
     }
 
     public Theme getActualTheme() {
-
         return actualTheme;
     }
 }
