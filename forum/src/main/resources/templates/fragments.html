@@ -4,7 +4,7 @@
 
 <div th:fragment="header">
 
-    <div >
+    <div align="right">
         <form action="login" method="Post">
             <label>Username</label>
             <input type="text" name="userName" required="required" />
@@ -12,6 +12,12 @@
             <input type="password" name="password" required="required" />
             <input type="submit" value="Login" />
         </form>
-</div>
+    </div>
+
+    <div align="right" th:if="${@userController.logged}"> You are logged as
+        <span id="username" th:text="${@userController.loggedUsername}"></span>
+    </div>
+    <div align="right"><a href="/logout">Logout</a></div>
+
 </div>
 </html>
