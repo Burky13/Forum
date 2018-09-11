@@ -35,10 +35,12 @@ public class CategoryController {
     }
 
     public Category getActualcategory(Long id){
+        return actualcategory;
+    }
+    public Category clickedCategory(Long id){
         actualcategory = categoryService.getCategory(id);
         return actualcategory;
     }
-
 
 
 }
