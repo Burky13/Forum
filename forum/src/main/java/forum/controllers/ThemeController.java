@@ -45,7 +45,8 @@ public class ThemeController {
         return "theme";
     }
 
-    public Theme getActualTheme() {
+    public Theme getActualTheme(Long id) {
+        actualTheme = themeService.getTheme(id);
         return actualTheme;
     }
 }
