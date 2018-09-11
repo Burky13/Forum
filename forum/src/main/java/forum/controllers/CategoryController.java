@@ -34,7 +34,7 @@ public class CategoryController {
         return "redirect:/";
     }
 
-    public Category getActualcategory(Long id){
+    public Category getActualcategory(){
         return actualcategory;
     }
     public Category clickedCategory(Long id){
