@@ -5,6 +5,7 @@ import forum.services.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
 @Controller
@@ -18,13 +19,14 @@ public class CategoryController {
 
     private Category actualcategory;
 
+    private Long idCategory;
 
 
     public String category() {
 
         return "/";
     }
-
+    @RequestMapping("/addCategory")
     public String addCategory(Category category) {
         if (userController.adminLogged() && category != null) {
             categoryService.addCategory(category);
@@ -33,6 +35,10 @@ public class CategoryController {
     }
 
     public Category getActualcategory(){
+        return actualcategory;
+    }
+    public Category clickedCategory(Long id){
+        actualcategory = categoryService.getCategory(id);
         return actualcategory;
     }
 

@@ -8,7 +8,7 @@ import forum.entity.Theme;
 public interface ThemeService {
     void addTheme(Theme theme);
 
-        List<Theme> getThemeByCategory(Category category);
+    List<Theme> getThemeByCategory(Category category);
 
     void editTheme(Long id, String newThemeName);
 
@@ -17,4 +17,6 @@ public interface ThemeService {
     void lock(Long id);
 
     void unlock(Long id);
+
+    Theme getTheme (Long id);
 }

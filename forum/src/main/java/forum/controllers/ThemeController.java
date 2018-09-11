@@ -46,6 +46,11 @@ public class ThemeController {
     }
 
     public Theme getActualTheme() {
+
+        return actualTheme;
+    }
+    public Theme clickedTheme(Long id){
+        actualTheme = themeService.getTheme(id);
         return actualTheme;
     }
 }

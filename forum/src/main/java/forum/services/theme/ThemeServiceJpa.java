@@ -94,4 +94,11 @@ public class ThemeServiceJpa implements ThemeService {
         }
     }
 
+    @Override
+    public Theme getTheme(Long id) {
+       return entityManager.createQuery("Select t from Theme where t.id:= id",Theme.class)
+               .setParameter("id",id)
+               .getSingleResult();
+    }
+
 }
