@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Date;
@@ -26,6 +27,9 @@ public class CommentController {
     @Autowired
     UserController userController;
 
+    @Autowired
+    ThemeController themeController;
+
     Theme theme;
 
     @RequestMapping("/theme")
@@ -36,9 +40,9 @@ public class CommentController {
     @RequestMapping("/addComment")
     public String addComment(Comment comment) {
         if (comment.getText() != null && userController.isLogged()) {
-            comment.setUser(userController.getLoggedUserName());
+            comment.setUser(userController.getLoggedUser());
             comment.setDate(new Date());
-            comment.setTheme(theme);
+            comment.setTheme(themeController.getActualTheme());
             commentService.addComment(comment);
         }
         return "theme";
@@ -53,9 +57,9 @@ public class CommentController {
     }
 
     @RequestMapping("/editComment")
-    public String editComment(Long id) {
-        if(id != null) {
-            commentService.editComment(id);
+    public String editComment(Long id, String text) {
+        if(id != null && text != null) {
+            commentService.editComment(id, text);
         }
         return "theme";
     }
