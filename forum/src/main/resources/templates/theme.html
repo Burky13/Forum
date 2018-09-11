@@ -1,10 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Theme</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
+    <head>
+        <title>Theme</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <form action="/addComment" method="post">
+            <table>
+                <tr>
+                    <td><textarea type="text" name="text" required="required" cols="70" rows="7" placeholder="Type your comment here."/></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Add comment" required="required"/></td>
+                </tr>
+            </table>
+        </form>
 
-</body>
+        <table>
+            <tr th:each="comment: ${@commentService.getComments(topicId)}">
+                <td th:text="${comment.userName}"></td>
+                <td th:text="${comment.commentedOn}"></td>
+            </tr>
+            <tr>
+                <td th:text="${comment.text}"></td>
+            </tr>
+        </table>
+    </body>
 </html>

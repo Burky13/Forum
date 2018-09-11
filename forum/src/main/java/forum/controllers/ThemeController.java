@@ -14,7 +14,7 @@ import forum.services.theme.ThemeService;
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class ThemeController {
-
+    private Theme actualTheme;
 
     @Autowired
     private ThemeService themeService;
@@ -38,5 +38,10 @@ public class ThemeController {
             themeService.deleteTheme(id);
         }
         return "theme";
+    }
+
+    public Theme getActualTheme() {
+
+        return actualTheme;
     }
 }
