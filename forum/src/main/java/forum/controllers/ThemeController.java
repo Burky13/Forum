@@ -25,8 +25,8 @@ public class ThemeController {
     @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme.getCategory() !=null && userController.isLogged()) {
-            theme.setUserName("Jozko");
-            theme.setWhenW(new Date());
+            theme.setUser(userController.getLoggedUser());
+            theme.setWhenCreated(new Date());
             themeService.addTheme(theme);
         }
         return "theme";
