@@ -28,12 +28,17 @@ public class CommentController {
 
     Theme theme;
 
+    @RequestMapping("/theme")
+    public String theme() {
+        return "theme";
+    }
+
     @RequestMapping("/addComment")
     public String addComment(Comment comment) {
         if (comment.getText() != null && userController.isLogged()) {
-            comment.setUserName(userController.getLoggedUserName());
-            comment.setCommentedOn(new Date());
-            comment.setTopicId(theme.getId());
+            comment.setUser(userController.getLoggedUserName());
+            comment.setDate(new Date());
+            comment.setTheme(theme);
             commentService.addComment(comment);
         }
         return "theme";
