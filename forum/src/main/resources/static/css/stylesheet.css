@@ -11,4 +11,21 @@ body {
 	background-image: url("backgrounds/3.jpg");
 	background-size: cover;
 	background-attachment: fixed;
+	color: white;
+}
+
+a:link, a:visited {
+	color: fuchsia;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+a:link:hover, a:visited:hover {
+	color: #2ba2f9;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#user {
+    color: yellow;
 }
