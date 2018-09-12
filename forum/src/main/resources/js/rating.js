@@ -7,7 +7,7 @@ for (var i = 0; i < a.length; i++) {
      for(let e = 1; e <= stars; e++){
          temp += " STAR"
      }
-     temp += " " + value + "/1.0"
+     temp = value + "/1.0" + temp
      a[i].innerHTML = temp;
      temp = ""
 }
