@@ -19,6 +19,7 @@ public class UserController {
     private User loggedUser;
 
     public boolean isLogged(){
+
         return loggedUser !=null;
     }
 
@@ -41,7 +42,7 @@ public class UserController {
     if(userName!=null && password!=null){
         loggedUser = userService.login(userName, password);
         if (loggedUser == null) {
-            return "login";
+            return "redirect:/";
         } else {
             System.out.println(loggedUser);
             return "register";

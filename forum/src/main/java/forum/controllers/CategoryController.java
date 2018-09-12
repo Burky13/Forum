@@ -19,7 +19,6 @@ public class CategoryController {
 
     private Category actualcategory;
 
-    private Long idCategory;
 
 
     public String category() {
@@ -37,10 +36,13 @@ public class CategoryController {
     public Category getActualcategory(){
         return actualcategory;
     }
-    public Category clickedCategory(Long id){
+    @RequestMapping("clickedCategory")
+    public String clickedCategory(Long id){
         actualcategory = categoryService.getCategory(id);
-        return actualcategory;
+        return "redirect:/";
     }
 
-
+public boolean isClicked(){
+        return actualcategory!=null;
+}
 }

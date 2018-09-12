@@ -3,11 +3,11 @@ package forum.services.Category;
 import forum.entity.Category;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.concurrent.CancellationException;
-
+@Transactional
 public class CategoryServiceJpa implements  CategoryService {
 
     @PersistenceContext
@@ -20,7 +20,7 @@ public class CategoryServiceJpa implements  CategoryService {
     }
 
     @Override
-    @Transactional
+
     public void addCategory(Category category) {
             entityManager.persist(category);
 
@@ -28,9 +28,15 @@ public class CategoryServiceJpa implements  CategoryService {
 
     @Override
     public Category getCategory(Long id) {
-        return entityManager.createQuery("Select c from Category c where c.id:= id",Category.class)
-                            .setParameter("id",id)
-                .getSingleResult();
+        System.out.println(id);
+        try {
+            return entityManager.createQuery("Select c from Category c where c.id= :id", Category.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        }catch(NoResultException e){
+
+        }
+        return null;
 
     }
 }

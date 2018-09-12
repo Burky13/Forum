@@ -24,20 +24,55 @@
             <h3>All Categories:</h3>
             <table>
                 <tr th:each="category: ${@categoryService.getAllCategories()}">
-                    <td th:text="${category.name}"/>
+                    <td>
+                        <a th:href='${"/clickedCategory?id="+category.id}' th:text="${category.name}">
+                        </a>
+
+                    </td>
                 </tr>
             </table>
             <div>
             <form action="addCategory" method="Post">
-                <label>New Theme Title</label>
+                <label>New Category </label>
                 <input type="text" name="name" required="required"/>
-                <input type="submit" value="Add Theme" />
+                <input type="submit" value="Add Category" />
             </form>
             </div>
 
             </div>
         </div>
+        <div class = "col-sm-3">
+            <div th:if="${@categoryController.isClicked()}">
+                <div th:if="${@userController.isLogged()}">
+                  <form action="addTheme" method ="Post">
+                      <label>New Theme Name</label>
+                      <input type="text" name="title" required="required"/>
+                    <input type="submit" value="Add New Theme"/>
+                  </form>
+                </div>
+        <table>
+            <tr th:each = "theme: ${@themeService.getThemeByCategory(@categoryController.getActualcategory())}">
+
+                <td >
+                    <a th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"></a>
+                </td>
+                </tr>
+        </table>
+        </div>
+            <div th:unless ="${@categoryController.isClicked()}">
+                <tr th:each = "theme: ${@themeService.getAllThemes()}">
+                    <td th:text="${theme.title}"></td>
+                </tr>
+            </div>
+
+        </div>
     </div>
+</div>
+
+<h1 class="section-headline">Vyhladavanie</h1>
+<div class="search-box-wrapper">
+    <input type="text" placeholder="Search..." class="search-box-input"/>
+    <button class="search-box-button">&#128269;</button>
 </div>
 
 </body>

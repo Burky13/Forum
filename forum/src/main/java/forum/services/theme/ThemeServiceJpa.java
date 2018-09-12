@@ -20,13 +20,9 @@ public class ThemeServiceJpa implements ThemeService {
 
     @Override
     public void addTheme(Theme theme) {
-        try {
-            entityManager.persist(theme);
-        } catch (Exception e) {
-            throw new ThemeException("Cannot save theme", e);
 
-        }
-    }
+            entityManager.persist(theme);
+           }
 
     @Override
     public List<Theme> getThemeByCategory(Category category) {
@@ -96,9 +92,19 @@ public class ThemeServiceJpa implements ThemeService {
 
     @Override
     public Theme getTheme(Long id) {
-       return entityManager.createQuery("Select t from Theme where t.id:= id",Theme.class)
+       return entityManager.createQuery("Select t from Theme t where t.id = :id",Theme.class)
                .setParameter("id",id)
                .getSingleResult();
+    }
+
+    @Override
+    public List<Theme> getAllThemes() {
+        try {
+            return entityManager.createQuery("select t from Theme t", Theme.class)
+
+                    .getResultList();
+        } catch (NoResultException e){
+        } return null;
     }
 
 }

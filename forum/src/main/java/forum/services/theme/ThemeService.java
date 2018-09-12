@@ -19,4 +19,5 @@ public interface ThemeService {
     void unlock(Long id);
 
     Theme getTheme (Long id);
+    List<Theme> getAllThemes();
 }

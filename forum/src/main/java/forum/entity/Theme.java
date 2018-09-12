@@ -3,7 +3,9 @@ package forum.entity;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -15,13 +17,17 @@ public class Theme implements Serializable {
     @GeneratedValue
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(foreignKey = @ForeignKey(name = "id",value = ConstraintMode.NO_CONSTRAINT))
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private Category category;
+
+
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<Comment>();
 
     @Column(nullable = false)
     private String title;

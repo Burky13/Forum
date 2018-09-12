@@ -29,9 +29,13 @@ public class ThemeController {
     @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme !=null && userController.isLogged()) {
+
             theme.setCategory(categoryController.getActualcategory());
+
             theme.setUser(userController.getLoggedUser());
+
             theme.setWhenCreated(new Date());
+
             themeService.addTheme(theme);
         }
         return "redirect:/";
@@ -49,8 +53,9 @@ public class ThemeController {
 
         return actualTheme;
     }
-    public Theme clickedTheme(Long id){
+    @RequestMapping("/clickedTheme")
+    public String clickedTheme(Long id){
         actualTheme = themeService.getTheme(id);
-        return actualTheme;
+        return "theme";
     }
 }

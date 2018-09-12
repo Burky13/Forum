@@ -21,16 +21,13 @@
             </form>
         </div>
 
-        <div>
-            <table th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}">
-                <tr>
-                    <td th:text="${comment.user}"></td>
-                    <td th:text="${comment.date}"></td>
-                </tr>
-                <tr>
-                    <td th:text="${comment.text}"></td>
-                </tr>
-            </table>
-        </div>
+        <table>
+            <tr th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}">
+                <td th:text="${comment.user.getUserName()}"></td>
+                <td th:text="${comment.date}"></td>
+                <td th:text="${comment.text}"></td>
+            </tr>
+
+        </table>
     </body>
 </html>

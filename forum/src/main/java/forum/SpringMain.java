@@ -20,29 +20,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SpringMain {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SpringMain.class, args);
-    }
+    public static void main(String[] args) {SpringApplication.run(SpringMain.class, args);}
 
 
         @Bean
-        public UserService userService() {
-        return new UserServiceJpa();
-    }
+        public UserService userService() {return new UserServiceJpa();}
 
         @Bean
-        public CommentService commentService(){
-        return new CommentServiceJPA();
-        }
+        public CommentService commentService(){return new CommentServiceJPA();}
 
         @Bean
-        public RatingService ratingService() { return new RatingServiceJpa();}
+        public RatingService ratingService() {return new RatingServiceJpa();}
 
         @Bean
         public ThemeService themeService() {return new ThemeServiceJpa();}
 
         @Bean
-public CategoryService categoryService(){
-    return new CategoryServiceJpa();
-}
+        public CategoryService categoryService(){return new CategoryServiceJpa();}
 }

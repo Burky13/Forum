@@ -43,6 +43,7 @@ public class CommentController {
             comment.setUser(userController.getLoggedUser());
             comment.setDate(new Date());
             comment.setTheme(themeController.getActualTheme());
+            System.out.println("voslo?????");
             commentService.addComment(comment);
         }
         return "theme";
