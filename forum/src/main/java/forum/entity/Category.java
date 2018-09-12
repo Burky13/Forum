@@ -1,10 +1,9 @@
 package forum.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
@@ -12,9 +11,12 @@ public class Category implements Serializable {
 
     @Id
     @GeneratedValue
-    private int id ;
+    private Long id ;
     @Column(length = 150)
     private String name;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Theme> theme = new ArrayList<Theme>();
 
     public Category(){
 
@@ -24,11 +26,11 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

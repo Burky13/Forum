@@ -6,7 +6,8 @@
     </head>
     <body>
         <form action="/addComment" method="post">
-            <table>
+
+           <table>
                 <tr>
                     <td><textarea type="text" name="text" required="required" cols="70" rows="7" placeholder="Type your comment here."/></td>
                 </tr>
@@ -17,13 +18,12 @@
         </form>
 
         <table>
-            <tr th:each="comment: ${@commentService.getComments(topicId)}">
-                <td th:text="${comment.userName}"></td>
-                <td th:text="${comment.commentedOn}"></td>
-            </tr>
-            <tr>
+            <tr th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}">
+                <td th:text="${comment.user.getUserName()}"></td>
+                <td th:text="${comment.date}"></td>
                 <td th:text="${comment.text}"></td>
             </tr>
+
         </table>
     </body>
 </html>

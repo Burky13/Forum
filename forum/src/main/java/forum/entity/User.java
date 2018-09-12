@@ -5,10 +5,13 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="forum_user")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue
     private long id;
@@ -23,6 +26,12 @@ public class User {
     @ColumnDefault("false")
     private boolean moderator;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<Comment>();
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Theme> theme = new ArrayList<Theme>();
     private User(){
 
     }

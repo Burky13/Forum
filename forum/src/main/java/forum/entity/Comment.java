@@ -1,20 +1,21 @@
 package forum.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Comment {
+public class Comment implements Serializable {
     @Id
     @GeneratedValue
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(foreignKey = @ForeignKey(name = "id",value = ConstraintMode.NO_CONSTRAINT))
     private Theme theme;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private User user;
     @Column(nullable =  false)
     private String text;

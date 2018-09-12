@@ -1,19 +1,20 @@
 package forum.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Rating {
+public class Rating implements Serializable {
     @Id
     @GeneratedValue
     private long Id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private Comment comment;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private User user;
 
     private int rating;

@@ -44,7 +44,7 @@ public class CommentServiceJPA implements CommentService {
 	@Override
     public List<Comment> getComments(Theme theme) {
         try{
-            return entityManager.createQuery("select c from Comment c where c.theme = :theme order by c.commentedOn desc", Comment.class)
+            return entityManager.createQuery("select c from Comment c where c.theme = :theme order by c.date desc", Comment.class)
                     .setParameter("theme", theme)
                     .getResultList();
         }catch (NoResultException e) {
