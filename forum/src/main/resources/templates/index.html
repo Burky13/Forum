@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous" />
 <head>
     <meta charset="ISO-8859-2" />
 
@@ -13,51 +16,29 @@
 <h1>Welcome to Forum</h1>
 <hr></hr>
 
-<!--<div class="container">-->
-    <!--<div class="row">-->
-        <!--<div class="col-sm-4">-->
-            <!--<h2>-->
-                <!--<a href="/Theme">Category</a>-->
-            <!--</h2>-->
+<div class="container-fluid">
 
-        <!--</div>-->
+    <div class="row">
+        <div class="col-sm-3">
+        <div>
+            <h3>All Categories:</h3>
+            <table>
+                <tr th:each="category: ${@categoryService.getAllCategories()}">
+                    <td th:text="${category.name}"/>
+                </tr>
+            </table>
+            <div>
+            <form action="addCategory" method="Post">
+                <label>New Theme Title</label>
+                <input type="text" name="name" required="required"/>
+                <input type="submit" value="Add Theme" />
+            </form>
+            </div>
 
-        <!--<div class="col-sm-4" th:unless="${@userController.logged}">-->
-
-            <!--<h2>ADD Themes</h2>-->
-            <!--<div th:fragment="addTheme(themename)">-->
-                <!--<hr/>-->
-                <!--<h2>Add new themes: </h2>-->
-                <!--<form action="/addTheme" method="post">-->
-                    <!--<input type="hidden" name="theme"  th:value ="${themename}"/>-->
-                    <!--<table>-->
-                        <!--<tr>-->
-                            <!--<td><label>Name of theme: </label></td>-->
-                            <!--<td><input type ="text" name = "text"  required = "required"/></td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                            <!--<td colspan="2" align = "center">-->
-                                <!--<input type="submit" value ="Add Theme"/>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
-                <!--</form>-->
-            <!--</div>-->
-
-        <!--<div class="col-sm-4" th:if="${@userController.logged}">-->
-            <!--<h2>-->
-                <!--Aka hra to bude dnes <span class="user"-->
-                                           <!--th:text="${@userController.loggedUserName}"></span>?-->
-            <!--</h2>-->
-
-            <!--<hr></hr>-->
-            <!--<h2>-->
-                <!--<a href="/logout">Odhlasit sa</a>-->
-            <!--</h2>-->
-            <!--<hr></hr>-->
-
-    <!--</div>-->
-<!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

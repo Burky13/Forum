@@ -1,8 +1,6 @@
 package forum.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Rating {
@@ -10,64 +8,50 @@ public class Rating {
     @GeneratedValue
     private long Id;
 
-    private String userName;
-    private long commentId;
-    private int value;
-    private String type;
-    private String poster;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Comment comment;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private User user;
+
+    private int rating;
 
 
     public Rating(){}
 
-    public Rating(String userName, long commentId, int value, String type){
-        this.userName = userName;
-        this.commentId = commentId;
-        this.value = value;
-        this.type = type;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public long getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(long commentId) {
-        this.commentId = commentId;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public Rating(Comment comment, User user, int rating){
+        this.comment = comment;
+        this.user = user;
+        this.rating = rating;
     }
 
     public long getId() {
         return Id;
     }
 
-    public String getPoster() {
-        return poster;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }

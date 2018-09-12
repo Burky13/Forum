@@ -42,8 +42,7 @@ public class SpringMain {
         public ThemeService themeService() {return new ThemeServiceJpa();}
 
         @Bean
-        public CategoryService categoryService() {
-            return new CategoryServiceJpa();
-        }
-
+public CategoryService categoryService(){
+    return new CategoryServiceJpa();
+}
 }

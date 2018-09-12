@@ -2,11 +2,13 @@ package forum.services.rating;
 
 import forum.entity.Comment;
 import forum.entity.Rating;
+import forum.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -18,54 +20,39 @@ public class RatingServiceJpa implements RatingService{
     @Override
     public void changeRating(Rating rating) {
         Rating r = null;
-        Comment c = null;
         try {
-            r = entityManager.createQuery("Select r from Rating r where r.userName = :username and r.commentId = :commentid", Rating.class)
-                    .setParameter("username", rating.getUserName()).setParameter("commentid", rating.getCommentId())
-                    .getSingleResult();
-        } catch (NoResultException e) {
-        }
-        if (r != null) {
-            r.setValue(rating.getValue());
-        } else {
+            r = entityManager.createQuery("Select r from Rating r where r.comment = :comment and r.user = :user",Rating.class)
+                    .setParameter("comment", rating.getComment()).setParameter("user", rating.getUser()).getSingleResult();
+        }catch (NoResultException e){
             entityManager.persist(rating);
         }
-        try {
-            c = entityManager.createQuery("Select c from Comment c where r.id = :commentid and r.userName = :username", Comment.class)
-                   .setParameter("commentid", rating.getCommentId()).setParameter("username", rating.getPoster()).getSingleResult();
-        } catch (NoResultException e) { }
-//        c.setRating(getAvgRating(c.getTopicId(),"comment"));
-        entityManager.merge(c);
-    }
-
-    @Override
-    public double getAvgRating(long commentID, String type){
-        double likes = 0;
-        double dislikes = 0;
-
-        try {
-            likes = entityManager.createQuery("Select count(value) from Rating r where r.commentId = :commentid and r.value = 1 and r.type = :type", Double.class)
-                    .setParameter("commentid", commentID).setParameter("type", type).getSingleResult();
-        }catch (NoResultException e){}
-        try {
-            dislikes = entityManager.createQuery("Select count(value) from Rating r where r.commentId = :commentid and r.value = -1 and r.type = :type", Double.class)
-                    .setParameter("commentid", commentID).setParameter("type", type).getSingleResult();
-        }catch (NoResultException e){}
-
-        if(likes == 0 && dislikes == 0){
-            return 0.5;
-        }else{
-            return likes / (likes + dislikes);
+        if(r != null){
+            r.setRating(rating.getRating());
         }
-
     }
 
     @Override
-    public double getUserRating(String userName) {
+    public double getAvgRating(Comment comment){
         try {
-            return entityManager.createQuery("Select avg(rating) from Comment c where c.userName = :userName", Double.class).setParameter("userName",userName).getSingleResult();
+            return entityManager.createQuery("Select avg(value) from Rating r where r.comment = :comment",Double.class)
+                    .setParameter("comment", comment).getSingleResult();
         }catch (NoResultException e){
             return 0.5;
         }
+    }
+
+    @Override
+    public double getUserRating(User user) {
+        List<Comment> comments;
+        double value = 0;
+        try {
+            comments = entityManager.createQuery("Select c from Comment c where r.user = user").setParameter("user",user).getResultList();
+        }catch (NoResultException e){
+            return 0.5;
+        }
+        for(Comment comment: comments){
+            value += getAvgRating(comment);
+        }
+        return value/comments.size();
     }
 }

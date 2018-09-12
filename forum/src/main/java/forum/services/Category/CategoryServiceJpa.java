@@ -4,6 +4,7 @@ import forum.entity.Category;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.concurrent.CancellationException;
 
@@ -19,9 +20,17 @@ public class CategoryServiceJpa implements  CategoryService {
     }
 
     @Override
+    @Transactional
     public void addCategory(Category category) {
-        if(category!=null){
             entityManager.persist(category);
-        }
+
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return entityManager.createQuery("Select c from Category c where c.id:= id",Category.class)
+                            .setParameter("id",id)
+                .getSingleResult();
+
     }
 }
