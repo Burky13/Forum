@@ -20,7 +20,13 @@
 
     <div class="row">
         <div class="col-sm-3">
-        <div>
+            <div>
+            <form action="addCategory" method="Post">
+                <label>New Category </label>
+                <input type="text" name="name" required="required"/>
+                <input type="submit" value="Add Category" />
+            </form>
+            </div>
             <h3>All Categories:</h3>
             <table>
                 <tr th:each="category: ${@categoryService.getAllCategories()}">
@@ -31,17 +37,11 @@
                     </td>
                 </tr>
             </table>
-            <div>
-            <form action="addCategory" method="Post">
-                <label>New Category </label>
-                <input type="text" name="name" required="required"/>
-                <input type="submit" value="Add Category" />
-            </form>
-            </div>
 
             </div>
-        </div>
-        <div class = "col-sm-3">
+
+
+        <div class = "col-sm-4">
             <div th:if="${@categoryController.isClicked()}">
                 <div th:if="${@userController.isLogged()}">
                   <form action="addTheme" method ="Post">
@@ -50,6 +50,7 @@
                     <input type="submit" value="Add New Theme"/>
                   </form>
                 </div>
+                <h3>All Themes:</h3>
         <table>
             <tr th:each = "theme: ${@themeService.getThemeByCategory(@categoryController.getActualcategory())}">
 
