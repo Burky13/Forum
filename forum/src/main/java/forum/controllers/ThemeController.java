@@ -34,7 +34,7 @@ public class ThemeController {
             theme.setWhenCreated(new Date());
             themeService.addTheme(theme);
         }
-        return "theme";
+        return "redirect:/";
     }
 
     @RequestMapping("/removeTheme")
