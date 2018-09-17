@@ -17,7 +17,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    private Category actualcategory;
+    private Category actualCategory;
 
 
 
@@ -33,16 +33,17 @@ public class CategoryController {
         return "redirect:/";
     }
 
-    public Category getActualcategory(){
-        return actualcategory;
+    public Category getActualCategory(){
+        return actualCategory;
     }
+
     @RequestMapping("clickedCategory")
     public String clickedCategory(Long id){
-        actualcategory = categoryService.getCategory(id);
+        actualCategory = categoryService.getCategory(id);
         return "redirect:/";
     }
 
 public boolean isClicked(){
-        return actualcategory!=null;
+        return actualCategory !=null;
 }
 }

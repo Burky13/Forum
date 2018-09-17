@@ -45,7 +45,7 @@ public class UserController {
             return "redirect:/";
         } else {
             System.out.println(loggedUser);
-            return "register";
+            return "redirect:/";
         }
     }
         return "login";
@@ -57,7 +57,7 @@ public class UserController {
         if(user.getUserName() !=null){
             if(user.validatePassword()){
                 userService.register(user);
-                return "/";
+                return "redirect:/";
             }
         }
         return "register";

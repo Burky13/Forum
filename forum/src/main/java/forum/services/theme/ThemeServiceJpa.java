@@ -106,5 +106,4 @@ public class ThemeServiceJpa implements ThemeService {
         } catch (NoResultException e){
         } return null;
     }
-
 }
