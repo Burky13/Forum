@@ -32,6 +32,8 @@ public class CommentController {
 
     Theme theme;
 
+    Comment actualComment;
+
     @RequestMapping("/theme")
     public String theme() {
         return "theme";

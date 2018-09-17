@@ -23,11 +23,12 @@
 
         <table align="center" th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}">
             <tr>
-                <td bgcolor="blue" th:text="${comment.user.getUserName()}"></td>
+                <td bgcolor="navy" th:text="${comment.user.getUserName()}"></td>
                 <td bgcolor="grey" th:text="${comment.date}"></td>
+                <td th:if="${comment.user.getUserName().equals(@userController.getLoggedUserName())}"><a th:href='${"/removeComment?id="+comment.id}' th:text="X"></a></td>
             </tr>
             <tr>
-                <td bgcolor="red" th:text="${comment.text}" colspan="2"></td>
+                <td bgcolor="purple" th:text="${comment.text}" colspan="2"></td>
             </tr>
         </table>
     </body>

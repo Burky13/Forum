@@ -2,6 +2,7 @@ package forum.services.comment;
 
 import forum.entity.Comment;
 import forum.entity.Theme;
+import forum.entity.User;
 
 import java.util.List;
 

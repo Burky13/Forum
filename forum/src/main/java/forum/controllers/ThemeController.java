@@ -2,7 +2,6 @@ package forum.controllers;
 
 import java.util.Date;
 
-import forum.services.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,7 @@ public class ThemeController {
     public String addTheme(Theme theme) {
         if(theme !=null && userController.isLogged()) {
 
-            theme.setCategory(categoryController.getActualcategory());
+            theme.setCategory(categoryController.getActualCategory());
 
             theme.setUser(userController.getLoggedUser());
 

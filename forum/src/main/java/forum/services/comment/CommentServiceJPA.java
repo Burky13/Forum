@@ -2,6 +2,7 @@ package forum.services.comment;
 
 import forum.entity.Comment;
 import forum.entity.Theme;
+import forum.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -31,7 +32,7 @@ public class CommentServiceJPA implements CommentService {
     public void removeComment(Long id) {
        Comment c = null;
        try {
-           c = entityManager.createQuery("select id from Comment where id = :id", Comment.class)
+           c = entityManager.createQuery("select c from Comment c where id = :id", Comment.class)
                    .setParameter("id", id)
                    .getSingleResult();
        } catch (NoResultException e) {
