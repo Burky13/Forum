@@ -106,4 +106,13 @@ public class ThemeServiceJpa implements ThemeService {
         } catch (NoResultException e){
         } return null;
     }
+
+    @Override
+    public List<Theme> searchTheme(String title) {
+        try{
+            return entityManager.createQuery("select t from Theme t where t.title like :title", Theme.class).setParameter("title", "%"+title+"%").getResultList();
+        } catch (NoResultException e){
+        }
+        return null;
+    }
 }
