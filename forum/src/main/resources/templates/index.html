@@ -50,7 +50,7 @@
                         </div>
                         <h3>All Themes:</h3>
                         <table>
-                            <tr th:each = "theme: ${@themeService.getThemeByCategory(@categoryController.getActualcategory())}">
+                            <tr th:each = "theme: ${@themeService.getThemeByCategory(@categoryController.getActualCategory())}">
                                 <td >
                                     <a th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"></a>
                                 </td>
