@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -40,5 +41,19 @@ public class RatingController {
             System.out.println("Ta nesi lognuty more !!");
         }
         return "somewhere :)";
+    }
+
+    public double getCommentRating(double id) {
+        Comment c = null;
+        try{
+            c = entityManager.createQuery("Selecet c from Comment c where c.id = :id", Comment.class).setParameter("id",id).getSingleResult();
+        }catch(NoResultException e){
+
+        }
+        if(c != null) {
+            return ratingService.getAvgRating(c);
+        }else{
+            return 0.0;
+        }
     }
 }
