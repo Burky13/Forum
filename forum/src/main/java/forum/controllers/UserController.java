@@ -54,9 +54,7 @@ public class UserController {
 
     @RequestMapping("/register")
     public String register(User user){
-        System.out.println("VOJDE??????");
         if(user.getUserName() !=null){
-            System.out.println("VOJDE?");
             if(user.validatePassword()){
                 userService.register(user);
                 return "/";
