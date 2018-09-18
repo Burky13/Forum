@@ -43,6 +43,14 @@ public class CategoryController {
         return "redirect:/";
     }
 
+    @RequestMapping("/removeCategory")
+    public String removeCategory(Long id){
+        if(id != null){
+            categoryService.deleteCategory(id);
+        }
+        return "redirect:/";
+    }
+
 public boolean isClicked(){
         return actualCategory !=null;
 }
