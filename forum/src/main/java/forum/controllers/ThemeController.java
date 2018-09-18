@@ -45,7 +45,7 @@ public class ThemeController {
         if(id != null){
             themeService.deleteTheme(id);
         }
-        return "theme";
+        return "redirect:/";
     }
 
     public Theme getActualTheme() {
