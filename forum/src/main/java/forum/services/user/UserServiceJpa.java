@@ -38,15 +38,21 @@ public class UserServiceJpa implements UserService {
 
     @Override
     public User login(String userName, String password) {
+        User u = null;
         try {
-            return entityManager.createQuery("Select u from User u where u.userName= :userName and u.password = :password", User.class)
+            u= entityManager.createQuery("Select u from User u where u.userName= :userName and u.password = :password", User.class)
                     .setParameter("userName", userName)
                     .setParameter("password", password)
                     .getSingleResult();
         } catch (NoResultException e) {
 
         }
+        if(u!=null){
+            u.setOnline(true);
+            return u;
+        }
         return null;
+
     }
 
     @Override
@@ -127,6 +133,19 @@ public class UserServiceJpa implements UserService {
                     u.setWhenBlocked(new Date());
                 }
             }
+        }
+    }
+
+    @Override
+    public void logout(Long id) {
+        User u = null;
+        try {
+            u = entityManager.createQuery("Select u from User u where u.id =:id", User.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
+        }
+        if (u != null) {
+            u.setOnline(false);
         }
     }
 }

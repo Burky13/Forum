@@ -27,6 +27,7 @@
                         <th>Moderator</th>
                         <th>Blocked</th>
                         <th>When Blocked</th>
+                        <th>Online</th>
                         <th>Delete</th>
                     </tr>
                     <tr th:each="user: ${@userService.getAllUsers()}">
@@ -43,6 +44,7 @@
                             <a th:href = '${"/blockUnBlock?id="+user.id}' th:text="${user.blocked}"/>
                         </td>
                         <td class="tab" th:text="${user.whenBlocked}"></td>
+                        <td class = "tab" th:text="${user.online}"></td>
                         <td class="tab" >
                             <div th:unless ="${user.isAdmin()}">
                             <a  th:href='${"/deleteUser?id="+user.id}'  onclick="myFunction()" th:text="X">

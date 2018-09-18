@@ -79,7 +79,23 @@
 
             </div>
         </div>
+<div th:each = "user: ${@userService.getAllUsers()}">
+    <table>
+    <div th:if="${user.online}">
+        <h1>
+    <td  th:text="${user.userName}"></td>
+            <td  th:text="O"></td>
+        </h1>
+    </div>
+       <div th:unless="${user.online}">
+           <h3>
+               <td  th:text="${user.userName}"></td>
+               <td  th:text="X"></td>
+           </h3>
 
+       </div>
+    </table>
+</div>
 
 
     </body>

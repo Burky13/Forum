@@ -41,6 +41,7 @@ public class UserController {
     public String login(String userName , String password){
     if(userName!=null && password!=null){
         loggedUser = userService.login(userName, password);
+
         if (loggedUser == null) {
             return "redirect:/";
         } else {
@@ -65,6 +66,7 @@ public class UserController {
     }
     @RequestMapping("/logout")
     public String logout(){
+        userService.logout(loggedUser.getId());
         loggedUser =null;
         return "index";
     }

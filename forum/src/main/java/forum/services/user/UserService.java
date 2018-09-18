@@ -14,6 +14,7 @@ public interface UserService {
     void changeAdminPrivileges(Long id);
     void changeModeratorPrivileges(Long id);
     void blockAndUnblock (Long id);
+    void logout(Long id);
 
 
 }
