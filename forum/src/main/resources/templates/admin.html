@@ -9,7 +9,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
     <title>Admin</title>
 </head>
 <body>
@@ -24,16 +24,28 @@
                         <th>Name</th>
                         <th>Password</th>
                         <th>Admin</th>
+                        <th>Moderator</th>
+                        <th>Blocked</th>
+                        <th>When Blocked</th>
                         <th>Delete</th>
                     </tr>
                     <tr th:each="user: ${@userService.getAllUsers()}">
 
                         <td class="tab" th:text="${user.userName}"/>
                         <td class="tab" th:text="${user.password}" />
-                        <td class="tab" th:text="${user.admin}" />
+
+                        <td class="tab">
+                          <a th:href ='${"/changeAdminPrivileges?id="+user.id}' th:text="${user.admin}" /></td>
+                        <td class="tab">
+                           <a th:href ='${"/changeModeratorPrivileges?id="+user.id}' th:text="${user.moderator}"/>
+                        </td>
+                        <td class ="tab">
+                            <a th:href = '${"/blockUnBlock?id="+user.id}' th:text="${user.blocked}"/>
+                        </td>
+                        <td class="tab" th:text="${user.whenBlocked}"></td>
                         <td class="tab" >
-                            <div >
-                            <a th:href='${"/deleteUser?id="+user.id}'  onclick="myFunction()" th:text="X">
+                            <div th:unless ="${user.isAdmin()}">
+                            <a  th:href='${"/deleteUser?id="+user.id}'  onclick="myFunction()" th:text="X">
                             </a>
                             </div>
                         </td>
