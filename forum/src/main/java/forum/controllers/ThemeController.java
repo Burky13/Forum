@@ -25,6 +25,10 @@ public class ThemeController {
     @Autowired
     private CategoryController categoryController;
 
+    private String searchedTheme;
+
+
+
     @RequestMapping("/addTheme")
     public String addTheme(Theme theme) {
         if(theme !=null && userController.isLogged()) {
@@ -56,5 +60,16 @@ public class ThemeController {
     public String clickedTheme(Long id){
         actualTheme = themeService.getTheme(id);
         return "theme";
+    }
+
+   @RequestMapping("/searchTheme")
+    public String searchTheme(String text){
+        searchedTheme = text;
+        return "searchedTheme";
+    }
+
+    public String returnSearchedTheme(){
+        System.out.println(searchedTheme);
+        return searchedTheme;
     }
 }
