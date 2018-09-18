@@ -29,7 +29,8 @@ public class User implements Serializable {
     @ColumnDefault("false")
     private boolean blocked;
     private Date whenBlocked;
-
+    @ColumnDefault("false")
+    private boolean online;
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<Comment>();
 
@@ -119,5 +120,13 @@ public class User implements Serializable {
 
     public void setWhenBlocked(Date whenBlocked) {
         this.whenBlocked = whenBlocked;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 }
