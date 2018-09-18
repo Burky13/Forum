@@ -39,4 +39,18 @@ public class CategoryServiceJpa implements  CategoryService {
         return null;
 
     }
+
+    @Override
+    public void deleteCategory(Long id) {
+        Category c = null;
+        try{
+            c = entityManager.createQuery("select c from Category c where c.id= :id", Category.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e){
+        }
+        if (c != null){
+            entityManager.remove(c);
+        }
+    }
 }
