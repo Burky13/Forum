@@ -27,7 +27,7 @@ public class CategoryController {
     }
     @RequestMapping("/addCategory")
     public String addCategory(Category category) {
-        if (userController.adminLogged() && category != null) {
+        if (userController.adminLogged() || userController.moderatorLogged() && category != null) {
             categoryService.addCategory(category);
         }
         return "redirect:/";

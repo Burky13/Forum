@@ -20,4 +20,6 @@ public interface ThemeService {
 
     Theme getTheme (Long id);
     List<Theme> getAllThemes();
+
+    List<Theme> searchTheme(String title);
 }
