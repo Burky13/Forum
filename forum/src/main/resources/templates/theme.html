@@ -8,7 +8,7 @@
     <body>
         <div align="right" th:replace="fragments::header"></div>
 
-        <div align="center" th:if="${@userController.logged}">
+        <div align="center" th:if="${!@userController.isBlocked() and @userController.logged}">
             <form action="/addComment" method="post">
                 <table>
                     <tr>
