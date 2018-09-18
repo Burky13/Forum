@@ -7,6 +7,7 @@ import org.hibernate.annotations.GeneratorType;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,9 @@ public class User implements Serializable {
     private boolean admin;
     @ColumnDefault("false")
     private boolean moderator;
+    @ColumnDefault("false")
+    private boolean blocked;
+    private Date whenBlocked;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<Comment>();
@@ -99,5 +103,21 @@ public class User implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
+    public Date getWhenBlocked() {
+        return whenBlocked;
+    }
+
+    public void setWhenBlocked(Date whenBlocked) {
+        this.whenBlocked = whenBlocked;
     }
 }

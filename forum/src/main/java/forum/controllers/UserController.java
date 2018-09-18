@@ -80,7 +80,12 @@ public class UserController {
             return false;
         return loggedUser.isModerator();
     }
+    public boolean isBlocked(){
+        if(loggedUser==null)
+            return false;
 
+        return loggedUser.isBlocked();
+    }
 
 
 }

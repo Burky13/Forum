@@ -32,32 +32,24 @@ public class AdminController {
 
         return "redirect:/admin";
     }
-
-    @RequestMapping("/addAdmin")
-    public String addAdmin(Long id) {
-        if(id!=null){
-            userService.newAdmin(id);
+    @RequestMapping("/changeAdminPrivileges")
+    public String changeAdminPrivileges(Long id) {
+        if(id !=null ) {
+            userService.changeAdminPrivileges(id);
         }
         return "redirect:/admin";
     }
-    @RequestMapping("/addModerator")
-    public String addModerator(Long id){
-        if(id!=null){
-            userService.newModeraor(id);
+    @RequestMapping("/changeModeratorPrivileges")
+    public String changeModeratorPrivileges(Long id) {
+        if(id !=null ) {
+            userService.changeModeratorPrivileges(id);
         }
         return "redirect:/admin";
     }
-    @RequestMapping("/deleteAdmin")
-    public String deleteAdmin(Long id) {
-        if(id!=null){
-            userService.deleteAdmin(id);
-        }
-        return "redirect:/admin";
-    }
-    @RequestMapping("/deleteModerator")
-    public String deleteModerator(Long id){
-        if(id!=null){
-            userService.deleteModerator(id);
+    @RequestMapping("/blockUnBlock")
+    public String blockAndUnblock(Long id) {
+        if (id != null) {
+            userService.blockAndUnblock(id);
         }
         return "redirect:/admin";
     }
