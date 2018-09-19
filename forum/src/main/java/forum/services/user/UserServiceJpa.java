@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -22,30 +23,36 @@ public class UserServiceJpa implements UserService {
     @Override
     public void deleteUser(Long id) {
         User u = null;
-        try{
-            u = entityManager.createQuery("SELECT u FROM User u where u.id = :id",User.class)
-                    .setParameter("id",id)
+        try {
+            u = entityManager.createQuery("SELECT u FROM User u where u.id = :id", User.class)
+                    .setParameter("id", id)
                     .getSingleResult();
 
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
 
         }
-        if(u!=null){
+        if (u != null) {
             entityManager.remove(u);
         }
     }
 
     @Override
     public User login(String userName, String password) {
-        try{
-            return  entityManager.createQuery("Select u from User u where u.userName= :userName and u.password = :password",User.class)
-                    .setParameter("userName",userName)
-                    .setParameter("password",password)
+        User u = null;
+        try {
+            u= entityManager.createQuery("Select u from User u where u.userName= :userName and u.password = :password", User.class)
+                    .setParameter("userName", userName)
+                    .setParameter("password", password)
                     .getSingleResult();
-        }catch(NoResultException e){
+        } catch (NoResultException e) {
 
         }
+        if(u!=null){
+            u.setOnline(true);
+            return u;
+        }
         return null;
+
     }
 
     @Override
@@ -59,83 +66,86 @@ public class UserServiceJpa implements UserService {
     @Override
     public void changePassword(String userName, String email, String newPassword) {
         User u = null;
-        try{
-            u = entityManager.createQuery("Select u from User u where userName= :userName and email= :email and password= :newPassword",User.class)
-                    .setParameter("userName",userName)
-                    .setParameter("email",email)
-                    .setParameter("password",newPassword)
+        try {
+            u = entityManager.createQuery("Select u from User u where userName= :userName and email= :email and password= :newPassword", User.class)
+                    .setParameter("userName", userName)
+                    .setParameter("email", email)
+                    .setParameter("password", newPassword)
                     .getSingleResult();
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
 
         }
-        if(u!=null){
+        if (u != null) {
             u.setPassword(newPassword);
         }
     }
 
     @Override
-    public void newAdmin(Long id) {
+    public void changeAdminPrivileges(Long id) {
         User u = null;
-        try{
-            u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.admin= :admin",User.class)
-                    .setParameter("id",id)
-                    .setParameter("admin",false)
-                    .getSingleResult();
-        }catch(NoResultException e){
-
+        try {
+            u = entityManager.createQuery("Select u from User u where u.id =:id", User.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
         }
-        if(u!=null){
-            u.setAdmin(true);
+        if (u != null) {
+            if (u.isAdmin()) {
+                u.setAdmin(false);
+            } else {
+                u.setAdmin(true);
+            }
         }
     }
 
     @Override
-    public void newModeraor(Long id) {
-        User u = null;
-        try{
-            u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.moderator= :moderator",User.class)
-                    .setParameter("id",id)
-                    .setParameter("moderator",false)
-                    .getSingleResult();
-        }catch(NoResultException e){
+    public void changeModeratorPrivileges(Long id) {
 
+        User u = null;
+        try {
+            u = entityManager.createQuery("Select u from User u where u.id =:id", User.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
         }
-        if(u!=null){
-            u.setModerator(true);
+        if (u != null) {
+            if (u.isModerator()) {
+                u.setModerator(false);
+            } else {
+                u.setModerator(true);
+            }
         }
     }
 
     @Override
-    public void deleteAdmin(Long id) {
+    public void blockAndUnblock(Long id) {
         User u = null;
         try{
-            u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.admin= :admin ",User.class)
-                    .setParameter("id",id)
-                    .setParameter("admin",true)
-                    .getSingleResult();
-        }catch(NoResultException e){
-
-        }
-        if(u!=null){
-            u.setModerator(false);
+            u = entityManager.createQuery("Select u from User u where u.id =:id", User.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
+    }
+        if (u != null) {
+            if(!(u.isModerator() || u.isAdmin())){
+                if(u.isBlocked()){
+                    u.setBlocked(false);
+                    u.setWhenBlocked(null);
+                }else{
+                    u.setBlocked(true);
+                    u.setWhenBlocked(new Date());
+                }
+            }
         }
     }
 
     @Override
-    public void deleteModerator(Long id) {
+    public void logout(Long id) {
         User u = null;
-        try{
-            u = entityManager.createQuery("SELECT u FROM User u where u.id = :id and u.moderator= : moderator",User.class)
-                    .setParameter("id",id)
-                    .setParameter("moderator",true)
-                    .getSingleResult();
-
-        }catch(NoResultException e){
-
+        try {
+            u = entityManager.createQuery("Select u from User u where u.id =:id", User.class)
+                    .setParameter("id", id).getSingleResult();
+        } catch (NoResultException e) {
         }
-        if(u!=null){
-            u.setModerator(false);
+        if (u != null) {
+            u.setOnline(false);
         }
     }
-
 }

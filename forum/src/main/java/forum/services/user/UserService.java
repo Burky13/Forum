@@ -11,9 +11,10 @@ public interface UserService {
     User login(String userName , String password);
     List<User> getAllUsers();
     void changePassword(String userName,String email,String newPassword);
-    void newAdmin(Long id);
-    void newModeraor(Long id);
-    void deleteAdmin(Long id);
-    void deleteModerator(Long id);
+    void changeAdminPrivileges(Long id);
+    void changeModeratorPrivileges(Long id);
+    void blockAndUnblock (Long id);
+    void logout(Long id);
+
 
 }

@@ -17,7 +17,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    private Category actualcategory;
+    private Category actualCategory;
 
 
 
@@ -27,22 +27,31 @@ public class CategoryController {
     }
     @RequestMapping("/addCategory")
     public String addCategory(Category category) {
-        if (userController.adminLogged() && category != null) {
+        if (userController.adminLogged() || userController.moderatorLogged() && category != null) {
             categoryService.addCategory(category);
         }
         return "redirect:/";
     }
 
-    public Category getActualcategory(){
-        return actualcategory;
+    public Category getActualCategory(){
+        return actualCategory;
     }
+
     @RequestMapping("clickedCategory")
     public String clickedCategory(Long id){
-        actualcategory = categoryService.getCategory(id);
+        actualCategory = categoryService.getCategory(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/removeCategory")
+    public String removeCategory(Long id){
+        if(id != null){
+            categoryService.deleteCategory(id);
+        }
         return "redirect:/";
     }
 
 public boolean isClicked(){
-        return actualcategory!=null;
+        return actualCategory !=null;
 }
 }

@@ -17,7 +17,7 @@
     <div align="right" th:if="${@userController.logged}"> You are logged as
         <span id="user" th:text="${@userController.getLoggedUserName()}"></span>
     </div>
-    <div align="right"><a href="/logout">Logout</a></div>
+    <div align="right"><a th:unless="${@userController.isLogged()}" href="/register">Register</a><a th:if="${@userController.isLogged()}" href="/logout">Logout</a></div>
 
 </div>
 </html>
