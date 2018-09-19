@@ -42,13 +42,12 @@ public class RatingController {
         }
         return "somewhere :)";
     }
-
+    @RequestMapping("/getrating")
     public double getCommentRating(double id) {
         Comment c = null;
         try{
             c = entityManager.createQuery("Selecet c from Comment c where c.id = :id", Comment.class).setParameter("id",id).getSingleResult();
         }catch(NoResultException e){
-
         }
         if(c != null) {
             return ratingService.getAvgRating(c);
