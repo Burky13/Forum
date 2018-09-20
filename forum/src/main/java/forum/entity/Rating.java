@@ -9,8 +9,14 @@ public class Rating {
     @Id
     @GeneratedValue
     private long Id;
-
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
+    private Comment comment;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
+    
     private String userName;
     private String commentId;
     private int value;
