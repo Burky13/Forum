@@ -27,7 +27,7 @@ public class RatingServiceJpa implements RatingService{
             entityManager.persist(rating);
         }
         if(r != null){
-            r.setRating(rating.getRating());
+            r.setValue(rating.getValue());
         }
     }
 

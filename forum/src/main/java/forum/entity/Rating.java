@@ -16,7 +16,6 @@ public class Rating {
     @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private User user;
 
-    private String commentId;
     private int value;
 
 
