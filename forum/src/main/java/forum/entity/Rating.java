@@ -1,52 +1,50 @@
 package forum.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Rating {
     @Id
     @GeneratedValue
     private long Id;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
     @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private Comment comment;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
     @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
-    
-    private String userName;
+    private User user;
+
     private String commentId;
     private int value;
 
 
 
-    public Rating(String userName, String commentId, int value){
-        this.userName = userName;
-        this.commentId = commentId;
+    public Rating(Comment  comment, User user, int value){
+        this.user = user;
+        this.comment = comment;
         this.value = value;
     }
 
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setValue(int value) {
         this.value = value;
     }
 
-    public String getCommentId() {
-        return commentId;
+    public Comment getComment() {
+        return comment;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
     public int getValue() {
