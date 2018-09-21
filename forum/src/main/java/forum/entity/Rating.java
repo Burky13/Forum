@@ -1,58 +1,53 @@
 package forum.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-public class Rating implements Serializable {
+public class Rating {
     @Id
     @GeneratedValue
     private long Id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
-    private Comment comment;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
-    private User user;
-
-    private int rating;
+    private String userName;
+    private String commentId;
+    private int value;
 
 
-    public Rating(){}
 
-    public Rating(Comment comment, User user, int rating){
-        this.comment = comment;
-        this.user = user;
-        this.rating = rating;
+    public Rating(String userName, String commentId, int value){
+        this.userName = userName;
+        this.commentId = commentId;
+        this.value = value;
+    }
+
+    public void setCommentId(String commentId) {
+        this.commentId = commentId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     public long getId() {
         return Id;
-    }
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 }
