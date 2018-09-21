@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+</head>
+<body>
+    <div th:replace="fragments::header"></div>
+    <hr></hr>
+
+    <form action="/profile" method="Post">
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="firstName"/>
+        </div>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" name="lastName"/>
+        </div>
+
+        <div>
+            <label>Cell Phone:</label>
+            <input type="text" name="cellPhone"/>
+        </div>
+        <div>
+            <label>City:</label>
+            <input type="text" name="city"/>
+        </div>
+        <div>
+            <input type="submit" value="Update Profile" />
+        </div>
+    </form>
+
+    <!--<table align="left" th:each="profile: ${@profileService.showProfile(@userController.getLoggedUser())}">-->
+        <!--<tr>-->
+        <!--</tr>-->
+
+    <!--</table>-->
+</body>
+</html>

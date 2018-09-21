@@ -4,6 +4,8 @@ import forum.services.Category.CategoryService;
 import forum.services.Category.CategoryServiceJpa;
 import forum.services.comment.CommentService;
 import forum.services.comment.CommentServiceJPA;
+import forum.services.profile.ProfileService;
+import forum.services.profile.ProfileServiceJPA;
 import forum.services.rating.RatingService;
 import forum.services.rating.RatingServiceJpa;
 import forum.services.theme.ThemeService;
@@ -11,7 +13,6 @@ import forum.services.theme.ThemeServiceJpa;
 import forum.services.user.UserService;
 import forum.services.user.UserServiceJpa;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,4 +38,7 @@ public class SpringMain {
 
         @Bean
         public CategoryService categoryService(){return new CategoryServiceJpa();}
+
+        @Bean
+        public ProfileService profileService(){return new ProfileServiceJPA();}
 }

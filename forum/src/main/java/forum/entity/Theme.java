@@ -22,7 +22,7 @@ public class Theme implements Serializable {
     private User user;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(foreignKey = @ForeignKey(name = "id"))
     private Category category;
 
 
