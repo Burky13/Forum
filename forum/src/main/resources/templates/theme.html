@@ -4,6 +4,7 @@
         <title>Theme</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" href="/css/stylesheet.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
         <div align="right" th:replace="fragments::header"></div>
@@ -20,8 +21,8 @@
                 </table>
             </form>
         </div>
-
-        <table align="center" th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}">
+<div th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}" >
+        <table align="center" >
             <tr>
                 <td bgcolor="navy" th:text="${comment.user.getUserName()}"></td>
                 <td bgcolor="grey" th:text="${comment.date}"></td>
@@ -30,7 +31,24 @@
             <tr>
                 <td bgcolor="purple" th:text="${comment.text}" colspan="2"></td>
             </tr>
+            <tr>
+                <td class = "rating" th:text="${@ratingService.getAvgRating(comment.id)}"></td>
+                <td th:if="${@userController.logged}"><a th:href="@{/changerating(id=${comment.id},value=1)}">LIKE</a><a th:href="@{/changerating(id=${comment.id},value=0)}">DISLIKE</a></td>
+            </tr>
         </table>
-
+</div>
     </body>
+<script>
+    function update(target, value){
+        var $temp = $('<td class = "rating" width="75%"></td>')
+        var stars = value /0.2;
+        stars = stars.toPrecision(1);
+        $($temp).append(value+'/1.0');
+        for(var i = 0; stars > i; i++){
+        $($temp).append(' STAR');
+        }
+        $(target).replaceWith($temp);
+    }
+    $('.rating').each(function(){update(this, this.textContent)})
+</script>
 </html>
