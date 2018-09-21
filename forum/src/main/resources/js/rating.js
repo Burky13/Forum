@@ -11,3 +11,12 @@ for (var i = 0; i < a.length; i++) {
      a[i].innerHTML = temp;
      temp = ""
 }
+$(document).ready(function() {
+    $.ajax({
+        url: "http://localhost:8080/gettestr";
+        data:{one:1};
+    }).then(function(data) {
+       $(".rating").append(data.one);
+       $(".rating").append(data.two);
+    });
+});
