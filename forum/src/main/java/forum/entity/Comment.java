@@ -69,5 +69,6 @@ public class Comment implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
+
 }
 

@@ -5,7 +5,7 @@ import forum.entity.Rating;
 import forum.entity.User;
 
 public interface RatingService {
-    void changeRating(Rating rating);
-    double getAvgRating(Comment comment);
+    double getAvgRating(Long id);
     double getUserRating(User user);
+    void changeRating(Long id, Rating r);
 }

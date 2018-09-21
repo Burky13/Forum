@@ -8,17 +8,18 @@ public class Rating {
     @GeneratedValue
     private long Id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private Comment comment;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(foreignKey = @ForeignKey(name = "id" , value = ConstraintMode.NO_CONSTRAINT))
     private User user;
 
     private int value;
 
 
+    public Rating(){}
 
     public Rating(Comment  comment, User user, int value){
         this.user = user;

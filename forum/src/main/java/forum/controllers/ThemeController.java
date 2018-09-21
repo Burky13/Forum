@@ -2,6 +2,7 @@ package forum.controllers;
 
 import java.util.Date;
 
+import forum.services.rating.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ import forum.services.theme.ThemeService;
 public class ThemeController {
     private Theme actualTheme;
 
+    @Autowired
+    private RatingService ratingService;
     @Autowired
     private ThemeService themeService;
 
