@@ -1,6 +1,8 @@
 package forum.controllers;
 
 
+import forum.entity.RudeWords;
+import forum.services.rudeWords.RudeWordsService;
 import forum.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,6 +14,8 @@ import org.springframework.web.context.WebApplicationContext;
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class AdminController {
 
+    @Autowired
+    private RudeWordsService rudeWordsService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -51,6 +55,19 @@ public class AdminController {
         if (id != null) {
             userService.blockAndUnblock(id);
         }
+        return "redirect:/admin";
+    }
+
+    @RequestMapping("/addRudeWord")
+    public String addRudeWord(RudeWords word){
+        if(word !=null){
+            rudeWordsService.addWord(word);
+        }
+        return  "redirect:/admin";
+    }
+    @RequestMapping("/deleteWord")
+    public String deleteRudeWord(Long id ){
+        rudeWordsService.delete(id);
         return "redirect:/admin";
     }
 

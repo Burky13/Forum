@@ -1,6 +1,7 @@
 package forum.controllers;
 
 import forum.entity.Comment;
+import forum.entity.RudeWords;
 import forum.entity.Theme;
 import forum.services.comment.CommentService;
 import forum.services.theme.ThemeService;
@@ -30,6 +31,7 @@ public class CommentController {
     @Autowired
     ThemeController themeController;
 
+
     Theme theme;
 
     Comment actualComment;
@@ -45,6 +47,8 @@ public class CommentController {
             comment.setUser(userController.getLoggedUser());
             comment.setDate(new Date());
             comment.setTheme(themeController.getActualTheme());
+            String actual = comment.getText();
+            comment.setText(themeController.changeeRudeWords(actual));
             commentService.addComment(comment);
         }
         return "theme";

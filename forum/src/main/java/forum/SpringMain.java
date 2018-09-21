@@ -6,6 +6,8 @@ import forum.services.comment.CommentService;
 import forum.services.comment.CommentServiceJPA;
 import forum.services.rating.RatingService;
 import forum.services.rating.RatingServiceJpa;
+import forum.services.rudeWords.RudeWordsService;
+import forum.services.rudeWords.RudeWordsServiceJpa;
 import forum.services.theme.ThemeService;
 import forum.services.theme.ThemeServiceJpa;
 import forum.services.user.UserService;
@@ -37,4 +39,7 @@ public class SpringMain {
 
         @Bean
         public CategoryService categoryService(){return new CategoryServiceJpa();}
+
+        @Bean
+        public RudeWordsService rudeWordsService(){return new RudeWordsServiceJpa();}
 }

@@ -1,6 +1,8 @@
 package forum.controllers;
 
+import forum.bCrypt.BCrypt;
 import forum.entity.User;
+import forum.services.rudeWords.RudeWordsService;
 import forum.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -8,14 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
 public class UserController {
-
-
+    @Autowired
+    private RudeWordsService rudeWordsService;
     @Autowired
     private UserService userService;
 
+    private BCrypt bCrypt;
     private User loggedUser;
 
     public boolean isLogged(){
@@ -40,6 +46,9 @@ public class UserController {
     @RequestMapping("/login")
     public String login(String userName , String password){
     if(userName!=null && password!=null){
+
+
+        if(BCrypt.checkpw(password,userService.getPassword(userName)))
         loggedUser = userService.login(userName, password);
 
         if (loggedUser == null) {
@@ -56,9 +65,15 @@ public class UserController {
     @RequestMapping("/register")
     public String register(User user){
         if(user.getUserName() !=null){
-            if(user.validatePassword()){
-                userService.register(user);
-                return "redirect:/";
+            if (check(user.getUserName().toLowerCase())) {
+            if(user.validatePassword()) {
+
+
+                    String hashedPass = bCrypt.hashpw(user.getPassword(), bCrypt.gensalt());
+                    user.setPassword(hashedPass);
+                    userService.register(user);
+                    return "redirect:/";
+                }
             }
         }
         return "register";
@@ -89,5 +104,15 @@ public class UserController {
         return loggedUser.isBlocked();
     }
 
+    public boolean check(String word){
+        List<String> allRudeWords = new ArrayList<>();
+        allRudeWords = rudeWordsService.allRudeWords();
+        for (String wordFromList: allRudeWords){
+            if(word.contains(wordFromList)){
+                return false;
+        }
+        }
+        return true;
+    }
 
 }
