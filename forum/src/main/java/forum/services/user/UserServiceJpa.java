@@ -40,9 +40,8 @@ public class UserServiceJpa implements UserService {
     public User login(String userName, String password) {
         User u = null;
         try {
-            u= entityManager.createQuery("Select u from User u where u.userName= :userName and u.password = :password", User.class)
+            u= entityManager.createQuery("Select u from User u where u.userName= :userName", User.class)
                     .setParameter("userName", userName)
-                    .setParameter("password", password)
                     .getSingleResult();
         } catch (NoResultException e) {
 
@@ -147,5 +146,17 @@ public class UserServiceJpa implements UserService {
         if (u != null) {
             u.setOnline(false);
         }
+    }
+
+    @Override
+    public String getPassword(String userName) {
+        try{
+            return (String)entityManager.createQuery("Select u.password from User u where u.userName =:userName")
+                    .setParameter("userName",userName)
+                    .getSingleResult();
+        }catch (NoResultException e){
+
+        }
+        return null;
     }
 }

@@ -37,6 +37,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Theme> theme = new ArrayList<Theme>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Rating> rating = new ArrayList<Rating>();
+
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Profile profile;
 

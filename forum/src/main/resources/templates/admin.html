@@ -22,7 +22,7 @@
                 <table class="coment">
                     <tr>
                         <th>Name</th>
-                        <th>Password</th>
+
                         <th>Admin</th>
                         <th>Moderator</th>
                         <th>Blocked</th>
@@ -33,7 +33,7 @@
                     <tr th:each="user: ${@userService.getAllUsers()}">
 
                         <td class="tab" th:text="${user.userName}"/>
-                        <td class="tab" th:text="${user.password}" />
+
 
                         <td class="tab">
                           <a th:href ='${"/changeAdminPrivileges?id="+user.id}' th:text="${user.admin}" /></td>
@@ -83,6 +83,27 @@
                         </h3>
                     </div>
                 </form>
+
+            </div>
+            <div class="col-sm-3">
+                <h3>Add RudeWord</h3>
+                <form action="addRudeWord" method="Post">
+                    <div>
+                        <label>New Word:
+                        <input type="text" name="rudeWord" required="required"/>
+                        </label>
+                        <input type="submit" value="Add"/>
+                    </div>
+
+                </form>
+                <div>
+                    <div th:each="word: ${@rudeWordsService.getAllWords()}">
+                        <a  th:href='${"/deleteWord?id="+word.id}' th:text="${word.rudeWord}"></a>
+
+
+                    </div>
+
+                </div>
 
             </div>
 

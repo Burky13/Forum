@@ -36,24 +36,35 @@ public class RatingController {
             Rating rating = new Rating(entityManager.createQuery("Select c from Comment c where c.id = :id", Comment.class).setParameter("id",commentID).getSingleResult(),
                                         userController.getLoggedUser(),
                                         rate);
-            ratingService.changeRating(rating);
+            //ratingService.changeRating(rating);
         }else{
             System.out.println("Ta nesi lognuty more !!");
         }
         return "somewhere :)";
     }
-
+    @RequestMapping("/getrating")
     public double getCommentRating(double id) {
         Comment c = null;
         try{
             c = entityManager.createQuery("Selecet c from Comment c where c.id = :id", Comment.class).setParameter("id",id).getSingleResult();
         }catch(NoResultException e){
-
         }
         if(c != null) {
-            return ratingService.getAvgRating(c);
+            return ratingService.getAvgRating(c.getId());
         }else{
             return 0.0;
         }
     }
+    @RequestMapping("changerating")
+    public String changeRating(Long id, Integer value) {
+        if(userController.isLogged()) {
+            Rating r = new Rating();
+            r.setUser(userController.getLoggedUser());
+            r.setValue(value);
+            ratingService.changeRating(id, r);
+            System.out.println("ok");
+        }
+        return "redirect:/theme";
+    }
+
 }

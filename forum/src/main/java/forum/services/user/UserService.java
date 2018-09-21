@@ -15,6 +15,7 @@ public interface UserService {
     void changeModeratorPrivileges(Long id);
     void blockAndUnblock (Long id);
     void logout(Long id);
+    String getPassword(String userName);
 
 
 }
