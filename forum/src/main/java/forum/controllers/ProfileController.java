@@ -25,7 +25,6 @@ public class ProfileController {
 
     @RequestMapping("/profile")
     public String addProfile(Profile profile) {
-        System.out.println("KOKOTINA");
         if(profile != null && userController.isLogged()) {
       //      System.out.println(profile.getBirthday());
             System.out.println(profile.getCellPhone());
@@ -33,7 +32,7 @@ public class ProfileController {
         //    System.out.println(profile.getTwitter());
             System.out.println(profile.getLastName());
             System.out.println(profile.getCity());
-            profile.setUser(userController.getLoggedUser());
+//            profile.setUser(userController.getLoggedUser());
             profileService.addOrEditProfile(profile);
         }return "profile";
     }
