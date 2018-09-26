@@ -6,6 +6,8 @@ import forum.services.rating.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
@@ -23,38 +25,13 @@ public class RatingController {
     private UserController userController;
 
     EntityManager entityManager;
+    Model model;
 
     public static void main(String[] args){
 
     }
 
-    @RequestMapping("/rate")
-    public String changeRating(@RequestParam ("id")double commentID,
-                               @RequestParam ("rate")int rate){
 
-        if(userController.isLogged()){
-            Rating rating = new Rating(entityManager.createQuery("Select c from Comment c where c.id = :id", Comment.class).setParameter("id",commentID).getSingleResult(),
-                                        userController.getLoggedUser(),
-                                        rate);
-            //ratingService.changeRating(rating);
-        }else{
-            System.out.println("Ta nesi lognuty more !!");
-        }
-        return "somewhere :)";
-    }
-    @RequestMapping("/getrating")
-    public double getCommentRating(double id) {
-        Comment c = null;
-        try{
-            c = entityManager.createQuery("Selecet c from Comment c where c.id = :id", Comment.class).setParameter("id",id).getSingleResult();
-        }catch(NoResultException e){
-        }
-        if(c != null) {
-            return ratingService.getAvgRating(c.getId());
-        }else{
-            return 0.0;
-        }
-    }
     @RequestMapping("changerating")
     public String changeRating(Long id, Integer value) {
         if(userController.isLogged()) {
@@ -62,9 +39,13 @@ public class RatingController {
             r.setUser(userController.getLoggedUser());
             r.setValue(value);
             ratingService.changeRating(id, r);
-            System.out.println("ok");
         }
+        System.out.println(id);
         return "redirect:/theme";
     }
 
+    public int userVote(Long id){
+        Long idd = new Long(id);
+        return ratingService.userVote(idd,userController.getLoggedUser());
+    }
 }

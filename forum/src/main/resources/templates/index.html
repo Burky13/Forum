@@ -6,23 +6,36 @@
       crossorigin="anonymous" />
 <head>
     <meta charset="ISO-8859-2" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/stylesheet.css" />
     <title>Forum</title>
 
 </head>
     <body>
+        <h1 align="center">Welcome to Forum</h1>
+        <hr></hr>
         <div th:replace="fragments::header"></div>
         <hr></hr>
-        <h1>Welcome to Forum</h1>
-        <hr></hr>
-
+        <!--search-->
         <div class="container-fluid">
-
             <div class="row">
-                <div class="col-sm-3">
+                <div align="center" class = "col">
+                    <h3 class="section-headline">Search</h3>
+                    <div class="search-box-wrapper">
+                        <form action="searchTheme" method="Post">
+                            <input type="text" name="text" required="required" />
+                            <input type="submit" value="Search" />
+                        </form>
+                        <!--<button class="search-box-button" th:>&#128269;</button>-->
+                    </div>
+                </div>
+            </div>
+            <!--categories-->
+            <div class="row">
+                <div align="center" class="col">
                     <div th:if="${@userController.adminLogged() || @userController.moderatorLogged()}">
                         <form action="addCategory" method="Post">
-                            <label> New Category </label>
+                            <label class="newCatTheme"> New Category </label>
                             <input type="text" name="name" required="required"/>
                             <input type="submit" value="Add Category" />
                         </form>
@@ -30,19 +43,21 @@
                     <h3>All Categories:</h3>
                     <table>
                         <tr th:each="category: ${@categoryService.getAllCategories()}">
-                            <td><a th:href='${"/clickedCategory?id="+category.id}' th:text="${category.name}"></a></td>
-                            <td th:if="${@userController.adminLogged()}"><a th:href='${"/removeCategory?id="+category.id}' th:text="X"></a></td>
+                            <td>
+                                <a class="category" th:href='${"/clickedCategory?id="+category.id}' th:text="${category.name}"></a>
+                            </td>
+                            <td th:if="${@userController.adminLogged()}"><a th:href='${"/removeCategory?id="+category.id}'><button class="btn"><i class="fa fa-trash"></i></button></a></td>
                         </tr>
+
                     </table>
 
                 </div>
-
-
-                <div class = "col-sm-4">
+                <!--themes-->
+                <div align="center" class = "col">
                     <div th:if="${@categoryController.isClicked()}">
                         <div th:if="${@userController.isLogged()}">
                           <form action="addTheme" method ="Post">
-                              <label>New Theme Name</label>
+                              <label class="newCatTheme">New Theme</label>
                               <input type="text" name="title" required="required"/>
                             <input type="submit" value="Add New Theme"/>
                           </form>
@@ -50,52 +65,78 @@
                         <h3>All Themes:</h3>
                         <table>
                             <tr th:each = "theme: ${@themeService.getThemeByCategory(@categoryController.getActualCategory())}">
-                                <td ><a th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"></a></td>
-                                <td th:if="${@userController.moderatorLogged() || @userController.adminLogged()}"><a th:href='${"/removeTheme?id="+theme.id}' th:text="X"></a></td>
+                                <td>
+                                    <div class = "theme">
+                                    <a  th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"/>
+                                    <h6 align="left">Created by:
+                                        <div align="left">
+                                            <a th:text="${theme.user.getUserName()}" id="createdby" th:href='${"/clickedUser?id="+theme.user.getId()}'></a>
+                                            <span>&emsp;</span><span th:text="${theme.getWhenCreated()}"></span>
+                                        </div>
+                                    </h6>
+
+                                    </div>
+                                </td>
+                                <td th:if="${@userController.moderatorLogged() || @userController.adminLogged()}"><a th:href='${"/removeTheme?id="+theme.id}'><button class="btn"><i class="fa fa-trash"></i></button></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div align="center">
+                                        <footer class="menuLink"><a href=".theme"><i class="fa fa-arrow-circle-up"></i></a></footer>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
                     <div th:unless ="${@categoryController.isClicked()}">
                         <table>
                             <tr th:each = "theme: ${@themeService.getAllThemes()}">
-                                <td><a th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"></a></td>
-                                <td th:if="${@userController.moderatorLogged() || @userController.adminLogged()}"><a th:href='${"/removeTheme?id="+theme.id}' th:text="X"></a></td>
+                                <td>
+                                    <div class = "theme" >
+                                        <a th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"></a>
+                                        <h6 align="left">Created by:
+                                            <div align="left">
+                                                <a th:text="${theme.user.getUserName()}" id="createdby1" th:href='${"/clickedUser?id="+theme.user.getId()}'></a>
+                                                <span>&emsp;</span><span th:text="${theme.getWhenCreated()}"></span>
+                                            </div>
+                                        </h6>
+                                    </div>
+                                </td>
+                                <td th:if="${@userController.moderatorLogged() || @userController.adminLogged()}">
+                                    <a th:href='${"/removeTheme?id="+theme.id}'>
+                                        <button class="btn"><i class="fa fa-trash"></i></button>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div align="center  ">
+                                        <footer class="menuLink"><a href=".theme"><i class="fa fa-arrow-circle-up"></i></a></footer>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                     </div>
-
                 </div>
-                    <h4 class="section-headline">Vyhladavanie</h4>
-                    <div class="search-box-wrapper">
-                        <form action="searchTheme" method="Post">
-                        <input type="text" name="text"
-                               required="required" />
-                            <input type="submit" value="Vyhliadavat" />
-                        </form>
-                        <!--<button class="search-box-button" th:>&#128269;</button>-->
-                </div>
-
-
-
             </div>
         </div>
-<div th:each = "user: ${@userService.getAllUsers()}">
-    <table>
-    <div th:if="${user.online}">
-        <h1>
-    <td  th:text="${user.userName}"></td>
-            <td  th:text="O"></td>
-        </h1>
-    </div>
-       <div th:unless="${user.online}">
-           <h3>
-               <td  th:text="${user.userName}"></td>
-               <td  th:text="X"></td>
-           </h3>
 
-       </div>
-    </table>
-</div>
+        <div th:each = "user: ${@userService.getAllUsers()}">
+            <table>
+                <div th:if="${user.online}">
+                    <h4>
+                <td  th:text="${user.userName}"></td>
+                        <td><img alt="admin" src="css/backgrounds/online.png" width="10" height="10"/></td>
+                    </h4>
+                </div>
+                <div th:unless="${user.online}">
+                    <h4>
+                        <td  th:text="${user.userName}"></td>
+                        <td><img alt="admin" src="css/backgrounds/offline.png" width="10" height="10"/></td>
+                    </h4>
+                </div>
+            </table>
+        </div>
 
 
     </body>

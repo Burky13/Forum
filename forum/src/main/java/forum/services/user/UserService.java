@@ -16,6 +16,6 @@ public interface UserService {
     void blockAndUnblock (Long id);
     void logout(Long id);
     String getPassword(String userName);
-
+    User getUser(Long id);
 
 }

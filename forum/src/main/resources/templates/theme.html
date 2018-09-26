@@ -3,52 +3,93 @@
     <head>
         <title>Theme</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="/css/stylesheet.css" />
+        <link rel="stylesheet" href="/css/theme.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     <body>
         <div align="right" th:replace="fragments::header"></div>
 
-        <div align="center" th:if="${!@userController.isBlocked() and @userController.logged}">
-            <form action="/addComment" method="post">
-                <table>
+        <div th:each="theme: ${@themeController.getActualTheme()}">
+            <h1 th:text="${theme.title}" align="center"></h1>
+        </div>
+
+        <div th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}" >
+        <table align="center" class="comment">
+            <tr>
+                <td>
+                    <a th:text="${comment.user.getUserName()}" th:href='${"/clickedUser?id="+comment.user.getId()}'> </a>
+                </td>
+                <td th:text="${comment.date}"></td>
+                <td th:if="${comment.user.getUserName().equals(@userController.getLoggedUserName()) || @userController.moderatorLogged() || @userController.adminLogged()}"><a class="x" th:href='${"/removeComment?id="+comment.id}' th:text="X"></a></td>
+            </tr>
+            <form action="save" th:action="@{/editcomment(id=${comment.id})}" method="post">
+                <tr>
+                    <td colspan="3" class="bottom" align="center"><textarea class="textarea" readonly="true" type="text" name="text" required="required" cols="70" rows="7" th:text="${comment.text}"></textarea></td>
+                </tr>
+            <tr>
+                <td class = "rating" th:text="${@ratingService.getAvgRating(comment.id)}"></td>
+                <td align= "right" class = "vote" th:attr="data-vote=${@ratingController.userVote(comment.id)}" th:if="${!comment.user.getUserName().equals(@userController.getLoggedUserName()) and @userController.logged}">
+                    <a class= "like" th:href="@{/changerating(id=${comment.id},value=1)}">LIKE</a>
+                    <a class= "dislike" th:href="@{/changerating(id=${comment.id},value=0)}">DISLIKE</a>
+                </td>
+                <td colspan="3" align="right" class="top" th:if="${comment.user.getUserName().equals(@userController.getLoggedUserName())}">
+                    <button class="show" type="button"  onclick="edit(this)">EDIT</button>
+                    <input class="edit" type="submit" value="SAVE" required="required" onclick="done(this)"/>
+                    <button class="edit" type="reset" onclick="done(this)">CANCEL</button>
+                </td>
+            </tr>
+            </form>
+        </table>
+        </div>
+        <div th:if="${@userController.logged}">
+            <form  action="/addComment" method="post">
+                <table align="center">
                     <tr>
-                        <td><textarea type="text" name="text" required="required" cols="70" rows="7" placeholder="Type your comment here."/></td>
+                        <td align="center"><textarea id="addcomment" type="text" name="text" required="required" cols="70" rows="7" placeholder="Type your comment here."/></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Add comment" required="required"/></td>
+                        <td align="right"><input type="submit" value="ADD COMMENT" required="required"/></td>
                     </tr>
                 </table>
             </form>
         </div>
-<div th:each="comment: ${@commentService.getComments(@themeController.getActualTheme())}" >
-        <table align="center" >
-            <tr>
-                <td bgcolor="navy" th:text="${comment.user.getUserName()}"></td>
-                <td bgcolor="grey" th:text="${comment.date}"></td>
-                <td th:if="${comment.user.getUserName().equals(@userController.getLoggedUserName()) || @userController.moderatorLogged() || @userController.adminLogged()}"><a th:href='${"/removeComment?id="+comment.id}' th:text="X"></a></td>
-            </tr>
-            <tr>
-                <td bgcolor="purple" th:text="${comment.text}" colspan="2"></td>
-            </tr>
-            <tr>
-                <td class = "rating" th:text="${@ratingService.getAvgRating(comment.id)}"></td>
-                <td th:if="${@userController.logged}"><a th:href="@{/changerating(id=${comment.id},value=1)}">LIKE</a><a th:href="@{/changerating(id=${comment.id},value=0)}">DISLIKE</a></td>
-            </tr>
-        </table>
-</div>
     </body>
-<script>
+<script th:inline="javascript">
     function update(target, value){
         var $temp = $('<td class = "rating" width="75%"></td>')
-        var stars = value /0.2;
-        stars = stars.toPrecision(1);
-        $($temp).append(value+'/1.0');
+        var stars = value /0.2
+        stars = stars.toPrecision(1)
+        value = Number(value).toPrecision(2)
+        $($temp).append(value+'/1.0 ')
         for(var i = 0; stars > i; i++){
-        $($temp).append(' STAR');
+        $($temp).append('<img src="https://image.flaticon.com/icons/svg/148/148841.svg" alt=" STAR" width="20" height="20"/>')
         }
-        $(target).replaceWith($temp);
+        $(target).replaceWith($temp)
     }
-    $('.rating').each(function(){update(this, this.textContent)})
+    function vote(target){
+        var vote = target.getAttribute("data-vote")
+        if(vote == 1){
+            $(target).children(".like").css("background","rgb(200,200,200,0.4)")
+        }
+        if(vote == 0){
+            $(target).children(".dislike").css("background","rgb(200,200,200,0.4)")
+        }
+    }
+    function edit(target){
+	    $(target).hide()
+        $(target).siblings(".edit").show("fast")
+        $(target).closest(".comment").find(".textarea").attr("readonly", false).css({"border":"4px solid rgb(220,0,0,1)","width":"99%","margin":"0px"})
+    }
+    function done(target){
+	    $(target).hide()
+        $(target).siblings(".edit").hide("fast")
+        $(target).siblings(".show").show()
+        $(target).closest(".comment").find(".textarea").attr("readonly", true).removeAttr("style")
+    }
+    $(document).ready(function() {
+        $('.rating').each(function(){update(this, this.textContent)})
+        $('.vote').each(function(){vote(this)})
+    })
+
 </script>
 </html>

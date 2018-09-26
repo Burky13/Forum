@@ -57,7 +57,7 @@ public class User implements Serializable {
 
 
     public boolean validatePassword(){
-        return password.equals(repeatPassword);
+        return password.equals(repeatPassword) ;
     }
 
 
@@ -136,4 +136,5 @@ public class User implements Serializable {
     public void setOnline(boolean online) {
         this.online = online;
     }
+
 }

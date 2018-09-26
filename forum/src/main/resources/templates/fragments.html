@@ -1,23 +1,40 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/css/game.css" />
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous" />
+<head>
+    <meta charset="ISO-8859-2" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/stylesheet.css" />
+    <title>Forum</title>
 
-<div th:fragment="header">
+</head>
 
-    <div align="right" th:unless="${@userController.logged}">
-        <form action="login" method="Post">
-            <label>Username</label>
-            <input type="text" name="userName" required="required" />
-            <label>Password</label>
-            <input type="password" name="password" required="required" />
-            <input type="submit" value="Login" />
-        </form>
+<body>
+    <div th:fragment="header">
+        <div align="right" class="menuLink"><a href="/"><i class="fa fa-home"></i></a></div>
+        <div align="right" th:if="${@userController.adminLogged()}">
+            <a href="/admin">
+            <img alt="admin" src="css/backgrounds/Admin.png" width="50" height="50"/>
+            </a>
+        </div>
+
+        <div align="right" th:unless="${@userController.logged}">
+            <form action="login" method="Post">
+                <label class="login">Username</label>
+                <input type="text" name="userName" required="required" />
+                <label class="login">Password</label>
+                <input type="password" name="password" required="required" />
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+
+        <div class="headertext" align="right" th:if="${@userController.logged}"> You are logged as
+            <a id="user" th:text="${@userController.getLoggedUserName()}" th:href='${"/profile"}'></a>
+        </div>
+        <div class="headertext" align="right"><a th:unless="${@userController.isLogged()}" href="/register"><table><tr><td class="login" bgcolor="black">Register</td></tr></table></a><a id="logout" th:if="${@userController.isLogged()}" href="/logout">Logout</a></div>
     </div>
-
-    <div align="right" th:if="${@userController.logged}"> You are logged as
-        <a id="user" th:text="${@userController.getLoggedUserName()}" th:href='${"/profile"}'></a>
-    </div>
-    <div align="right"><a th:unless="${@userController.isLogged()}" href="/register">Register</a><a th:if="${@userController.isLogged()}" href="/logout">Logout</a></div>
-
-</div>
+</body>
 </html>

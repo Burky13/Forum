@@ -13,6 +13,7 @@ import java.util.Date;
 public class Profile implements Serializable {
 
     @Id
+    @GeneratedValue
     private long id;
 
     @OneToOne(cascade = CascadeType.MERGE)
@@ -198,7 +199,24 @@ public class Profile implements Serializable {
         return city;
     }
 
+
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public void change(Profile profile){
+        this.setFirstName(profile.getFirstName());
+        this.setLastName(profile.getLastName());
+        this.setCellPhone(profile.getCellPhone());
+        this.setCity(profile.getCity());
+        this.setBirthday(profile.getBirthday());
+        this.setHobbies(profile.getHobbies());
+        this.setFacebook(profile.getFacebook());
+        this.setInstagram(profile.getInstagram());
+        this.setTwitter(profile.getTwitter());
+        this.setLinkedIn(profile.getLinkedIn());
+        this.setMale(profile.isMale());
+        this.setSkype(profile.getSkype());
+        this.setWhatsapp(profile.getWhatsapp());
     }
 }

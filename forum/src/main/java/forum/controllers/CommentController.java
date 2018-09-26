@@ -62,11 +62,11 @@ public class CommentController {
         return "theme";
     }
 
-    @RequestMapping("/editComment")
+    @RequestMapping("/editcomment")
     public String editComment(Long id, String text) {
         if(id != null && text != null) {
             commentService.editComment(id, text);
         }
-        return "theme";
+        return "redirect:/theme";
     }
 }

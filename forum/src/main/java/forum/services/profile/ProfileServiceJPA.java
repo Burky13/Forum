@@ -14,17 +14,21 @@ public class ProfileServiceJPA implements ProfileService {
     @PersistenceContext
     EntityManager entityManager;
 
+
     @Override
-    public void addOrEditProfile(Profile profile) {
+    public void addOrEditProfile(Profile profile,User user) {
         Profile p = null;
+        System.out.println( profile.getUser());
         try {
             p = entityManager.createQuery("select p from Profile p where p.user = :user", Profile.class)
-                    .setParameter("user", profile.getUser())
+                    .setParameter("user",user)
                     .getSingleResult();
         } catch (NoResultException e) {}
         if(p != null) {
-            entityManager.remove(p);
-            entityManager.persist(profile);
+            System.out.println("voslo");
+            p.change(profile);
+
+
         }else {
             entityManager.persist(profile);
         }
@@ -41,4 +45,18 @@ public class ProfileServiceJPA implements ProfileService {
         }
         return null;
     }
+
+    @Override
+    public Profile getProfile(User user) {
+        try{
+            return entityManager.createQuery("Select p from Profile p where p.user= :user ",Profile.class)
+                    .setParameter("user",user)
+                    .getSingleResult();
+        }catch(NoResultException e){
+
+        }
+        return  null;
+
+    }
+
 }

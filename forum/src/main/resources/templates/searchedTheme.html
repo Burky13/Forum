@@ -6,15 +6,36 @@
       crossorigin="anonymous" />
 <head>
     <meta charset="ISO-8859-2" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/stylesheet.css" />
     <title>Forum</title>
 
 </head>
 <body>
-<table>
-<tr th:each="theme: ${@themeService.searchTheme(@themeController.returnSearchedTheme())}">
-    <td  th:text="${theme.title}"></td>
-</tr>
-</table>
+    <div th:replace="fragments::header"></div>
+    <hr/>
+    <div align="center" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <table>
+                        <tr th:each="theme: ${@themeService.searchTheme(@themeController.returnSearchedTheme())}">
+                            <td>
+                                <div class="theme">
+                                    <a  class="search" th:href='${"/clickedTheme?id="+theme.id}' th:text="${theme.title}"/>
+                                    <h6 align="left">In category:
+                                        <span th:text="${theme.category.getName()}"> </span>
+                                        <div>Created by:
+                                            <a th:text="${theme.user.getUserName()}" id="createdby" th:href='${"/profile"}'></a>
+                                            <span>&emsp;</span>
+                                            <span th:text="${theme.getWhenCreated()}"></span>
+                                        </div>
+                                    </h6>
+                                </div>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

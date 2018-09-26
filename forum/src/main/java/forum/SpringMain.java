@@ -33,7 +33,7 @@ public class SpringMain {
         public CommentService commentService(){return new CommentServiceJPA();}
 
         @Bean
-        public RatingService ratingService() {return new RatingServiceJpa();}
+        public RatingService ratingService() {return  new RatingServiceJpa();}
 
         @Bean
         public ThemeService themeService() {return new ThemeServiceJpa();}

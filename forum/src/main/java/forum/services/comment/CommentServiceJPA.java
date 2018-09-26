@@ -45,7 +45,7 @@ public class CommentServiceJPA implements CommentService {
 	@Override
     public List<Comment> getComments(Theme theme) {
         try{
-            return entityManager.createQuery("select c from Comment c where c.theme = :theme order by c.date desc", Comment.class)
+            return entityManager.createQuery("select c from Comment c where c.theme = :theme order by c.date asc", Comment.class)
                     .setParameter("theme", theme)
                     .getResultList();
         }catch (NoResultException e) {
@@ -58,9 +58,8 @@ public class CommentServiceJPA implements CommentService {
     public void editComment(Long id,String text) {
         Comment c = null;
         try {
-            c = entityManager.createQuery("select c from Comment c where c.id = :id and c.text = :text", Comment.class)
+            c = entityManager.createQuery("select c from Comment c where c.id = :id", Comment.class)
                     .setParameter("id", id)
-                    .setParameter("text",text)
                     .getSingleResult();
         } catch (NoResultException e) {
         }

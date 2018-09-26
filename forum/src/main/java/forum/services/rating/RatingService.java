@@ -8,4 +8,5 @@ public interface RatingService {
     double getAvgRating(Long id);
     double getUserRating(User user);
     void changeRating(Long id, Rating r);
+    int userVote(Long id,User user);
 }

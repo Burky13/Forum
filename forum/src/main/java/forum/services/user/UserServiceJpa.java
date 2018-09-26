@@ -159,4 +159,14 @@ public class UserServiceJpa implements UserService {
         }
         return null;
     }
+
+    @Override
+    public User getUser(Long id) {
+        try {
+            return entityManager.createQuery("Select u from User u where u.id = :id", User.class).setParameter("id", id).getSingleResult();
+        } catch(NoResultException e) {
+
+        }
+        return null;
+    }
 }

@@ -8,84 +8,86 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/stylesheet.css" />
     <title>Admin</title>
 </head>
 <body>
 <div th:if ="${@userController.adminLogged()}">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-4">
-
-                <h3>Click to Username to delete User</h3>
-                <table class="coment">
-                    <tr>
-                        <th>Name</th>
-
-                        <th>Admin</th>
-                        <th>Moderator</th>
-                        <th>Blocked</th>
-                        <th>When Blocked</th>
-                        <th>Online</th>
-                        <th>Delete</th>
+        <div align="center" class="row">
+            <div class="col">
+                <h1>Admin panel</h1>
+                <div th:replace="fragments::header"></div>
+                <br/>
+                <br/>
+                <br/>
+                <table class="comment">
+                    <tr class="comment">
+                        <th bgcolor="black" class="comment">Name</th>
+                        <th bgcolor="black" class="comment">Admin</th>
+                        <th bgcolor="black" class="comment">Moderator</th>
+                        <th bgcolor="black" class="comment">Blocked</th>
+                        <th bgcolor="black" class="comment">When Blocked</th>
+                        <th bgcolor="black" class="comment">Online</th>
+                        <th bgcolor="black" class="comment">Delete</th>
                     </tr>
-                    <tr th:each="user: ${@userService.getAllUsers()}">
-
-                        <td class="tab" th:text="${user.userName}"/>
-
-
-                        <td class="tab">
-                          <a th:href ='${"/changeAdminPrivileges?id="+user.id}' th:text="${user.admin}" /></td>
-                        <td class="tab">
+                    <tr th:each="user: ${@userService.getAllUsers()}" class="comment">
+                        <td class="tab" bgcolor="black"  th:text="${user.userName}">
+                        </td>
+                        <td bgcolor="black" class="tab" >
+                            <a th:href ='${"/changeAdminPrivileges?id="+user.id}' th:text="${user.admin}"></a>
+                        </td>
+                        <td bgcolor="black" class="tab">
                            <a th:href ='${"/changeModeratorPrivileges?id="+user.id}' th:text="${user.moderator}"/>
                         </td>
-                        <td class ="tab">
+                        <td bgcolor="black" class ="tab">
                             <a th:href = '${"/blockUnBlock?id="+user.id}' th:text="${user.blocked}"/>
                         </td>
-                        <td class="tab" th:text="${user.whenBlocked}"></td>
-                        <td class = "tab" th:text="${user.online}"></td>
-                        <td class="tab" >
+                        <td bgcolor="black" class="tab" th:text="${user.whenBlocked}">
+                        </td>
+                        <td bgcolor="black" class = "tab" th:text="${user.online}">
+                        </td>
+                        <td bgcolor="black" class="tab" >
                             <div th:unless ="${user.isAdmin()}">
-                            <a  th:href='${"/deleteUser?id="+user.id}'  onclick="myFunction()" th:text="X">
+                            <a  th:href='${"/deleteUser?id="+user.id}'  onclick="myFunction()" >
+                                <div align="center">
+                                <button id="adminbtn"><i class="fa fa-trash"></i></button>
+                                </div>
                             </a>
                             </div>
                         </td>
-
                     </tr>
                 </table>
             </div>
-
-            <div class="col-sm-3">
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div align="center" class="row">
+            <div class="col">
                 <h3>Change Password</h3>
                 <form action="adminChangePassword" method="Post">
                     <div>
-                        <h3>
-                            <label> Username <input type="text" name="userName"
-                                                    required="required" />
-                            </label>
-                        </h3>
-                        <h3>
-                            <label> NewPassword <input type="text" name="newPassword"
-                                                       required="required" />
-                            </label>
-                        </h3>
-                        <h3>
-                            <label> Password Again <input type="text"
-                                                          name="repeatPassword" required="required" />
-                            </label>
-                        </h3>
+                        <label><h3>Username</h3><input type="text" name="userName" required="required" />
+                        </label>
+                    </div>
+                    <div>
+                        <label><h3>NewPassword</h3><input type="text" name="newPassword" required="required" />
+                        </label>
+                    </div>
+                    <div>
+                        <label><h3>Password Again</h3><input type="text" name="repeatPassword" required="required" />
+                        </label>
 
                     </div>
                     <div>
-                        <h3>
-                            <input type="submit" value="Change password" />
-                        </h3>
+                        <input type="submit" value="Change password" />
                     </div>
                 </form>
 
             </div>
-            <div class="col-sm-3">
+            <div class="col">
                 <h3>Add RudeWord</h3>
                 <form action="addRudeWord" method="Post">
                     <div>

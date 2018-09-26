@@ -67,8 +67,31 @@ public class RatingServiceJpa implements RatingService{
                     .setParameter("comment", c).setParameter("user", r.getUser()).getSingleResult();
         }catch (NoResultException e){}
         if(rr != null){
-            entityManager.remove(rr);
+            if(rr.getValue() == r.getValue()) {
+                entityManager.remove(rr);
+            }else{
+                entityManager.remove(rr);
+                entityManager.persist(r);
+            }
+        }else{
+            entityManager.persist(r);
         }
-        entityManager.persist(r);
+    }
+
+    @Override
+    public int userVote(Long id ,User user){
+        Integer value = null;
+        Comment c = null;
+        try {
+            c = entityManager.createQuery("Select c from Comment c where c.id = :id", Comment.class).setParameter("id", id).getSingleResult();
+        }catch (NoResultException e){}
+        try {
+            value = entityManager.createQuery("Select r.value from Rating r where r.comment = :comment and r.user = :user",Integer.class).setParameter("comment",c).setParameter("user",user).getSingleResult();
+        }catch (NoResultException e){}
+        if(value != null){
+            return value;
+        }else{
+            return  2;
+        }
     }
 }

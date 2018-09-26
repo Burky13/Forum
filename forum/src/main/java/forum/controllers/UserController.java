@@ -81,7 +81,9 @@ public class UserController {
     }
     @RequestMapping("/logout")
     public String logout(){
-        userService.logout(loggedUser.getId());
+        if(isLogged()) {
+            userService.logout(loggedUser.getId());
+        }
         loggedUser =null;
         return "index";
     }
@@ -108,7 +110,7 @@ public class UserController {
         List<String> allRudeWords = new ArrayList<>();
         allRudeWords = rudeWordsService.allRudeWords();
         for (String wordFromList: allRudeWords){
-            if(word.contains(wordFromList)){
+            if(word.toLowerCase().contains(wordFromList)){
                 return false;
         }
         }
